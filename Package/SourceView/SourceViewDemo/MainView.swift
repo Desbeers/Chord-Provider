@@ -38,6 +38,7 @@ struct MainView: View {
                         .highlightCurrentLine(appState.options.highlightCurrentLine)
                         .wrapMode(appState.options.wrapLines ? .word : .none)
                         .spelling($appState.options.spelling)
+                        .scheme($appState.options.scheme)
                         .onTextChanged { _ in
                             appState.lastUpdate = Date.now
                             return []
@@ -58,6 +59,7 @@ struct MainView: View {
                         Text("Line \(appState.editor.currentLineNumber)")
                             .halign(.start)
                             .hexpand()
+                        Text(appState.options.scheme)
                         Text("Last update: \(appState.lastUpdate.formatted())")
                     }
                     .padding()

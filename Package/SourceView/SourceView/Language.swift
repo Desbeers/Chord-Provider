@@ -40,8 +40,6 @@ public enum Language: String, CaseIterable {
     case c
     /// C#
     case cSharp
-    /// ChordPro
-    case chordpro
     /// C++
     case cpp
     /// CG
@@ -362,6 +360,13 @@ public enum Language: String, CaseIterable {
     case yaml
     /// YARA
     case yara
+
+    // MARK: Custom
+
+    /// ChordPro
+    case chordpro
+    /// Makebook
+    case makebook
 
     // swiftlint:enable identifier_name
 

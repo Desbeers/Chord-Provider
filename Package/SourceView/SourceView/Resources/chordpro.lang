@@ -12,6 +12,8 @@
         <style id="attrib-value" name="Attribute Value" map-to="xml:attribute-name"/>
         <style id="tag" name="Tag" map-to="def:function"/>
         <style id="chord" name="Chord" map-to="def:keyword"/>
+        <style id="bracket" name="Bracket" map-to="def:strong-emphasis"/>
+        <style id="brace" name="Brace" map-to="def:comment"/>
     </styles>
 
     <default-regex-options case-sensitive="false"/>
@@ -34,8 +36,8 @@
             <start>\[</start>
             <end>\]</end>
             <include>
-                <context sub-pattern="0" where="start" style-ref="def:strong-emphasis"/>
-                <context sub-pattern="0" where="end" style-ref="def:strong-emphasis"/>
+                <context sub-pattern="0" where="start" style-ref="bracket"/>
+                <context sub-pattern="0" where="end" style-ref="bracket"/>
                 <context ref="tag"/>
                 <context id="chord-name" style-ref="chord">
                     <match>([^\]&lt;&gt;]*)</match>
@@ -132,6 +134,8 @@
             <start>(\{)(\%{all-directives})(:?)</start>
             <end>\}</end>
             <include>
+                <context sub-pattern="0" where="end"   style-ref="brace"/>
+                <context sub-pattern="1" where="start" style-ref="brace"/>
                 <context sub-pattern="2" where="start" style-ref="def:type"/>
                 <context sub-pattern="3" where="start" style-ref="attrib-name"/>
                 <context ref="tag"/>

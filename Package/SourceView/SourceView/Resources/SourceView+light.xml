@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="SourceView-light" name="SourceView Light" version="1.0" parent-scheme="Adwaita">
+    <author>Nick Berendsen</author>
+    <_description>Default theme for SourceView</_description>
+    <metadata>
+      <property name="variant">light</property>
+      <property name="dark-variant">SourceView-dark</property>
+    </metadata>
+    <style name="chordpro:chord" bold="true" foreground="#1a5fb4" scale="large"/>
+    <style name="chordpro:bracket"  bold="true" foreground="#ff0000" scale="large"/>
+    <style name="chordpro:brace"  bold="true" foreground="#00ff00" scale="large"/>
+    <style name="chordpro:tag" bold="true" scale="x-large"/>
+</style-scheme>

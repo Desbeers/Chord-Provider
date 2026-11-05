@@ -43,9 +43,10 @@ public struct SimpleSourceView: AdwaitaWidget {
         // Set the style
         SourceViewController.initStyle(
             view: view,
-            buffer: buffer
+            buffer: buffer,
+            scheme: "Adwaita"
         )
-        _ = SourceViewController.initLanguage(buffer: buffer, language: language, resources: nil)
+        _ = SourceViewController.initLanguage(buffer: buffer, language: language, snippets: nil)
         // Wrap by word
         gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.gtkValue)
         // Disable editing

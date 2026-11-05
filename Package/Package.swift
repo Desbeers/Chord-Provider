@@ -100,7 +100,6 @@ let package = Package(
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-mime.svg"),
-                .copy("Resources/chordpro.lang"),
                 .copy("Resources/chordpro.snippets"),
                 .copy("Samples")
             ]
@@ -144,7 +143,10 @@ let package = Package(
                 "CSourceView",
                 "CLibSpelling"
             ],
-            path: "SourceView/SourceView"
+            path: "SourceView/SourceView",
+            resources: [
+                .copy("Resources")
+            ]
         ),
         // C stuff for the editor library
         .target(

@@ -52,7 +52,7 @@ extension Views {
                     .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                     .highlightCurrentLine(true)
                     .language(.chordpro)
-                    .languageResources(appState.resourcesDirectory)
+                    .snippets(appState.resourcesDirectory)
                     .spelling($appState.settings.editor.spelling)
                     .vexpand()
                     .style(.editor)

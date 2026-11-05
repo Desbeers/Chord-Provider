@@ -25,4 +25,6 @@ import Foundation
         public var fontSize: Int = 100
         /// Boof if spelling is enabled
         public var spelling: Bool = false
+        /// The scheme
+        public var scheme = "Adwaita"
     }

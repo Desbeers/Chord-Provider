@@ -28,3 +28,12 @@ struct AppState {
     /// Bool to use a monospace font
     var monoSpaceFont: Bool = true
 }
+
+extension AppState: @MainActor Codable {
+
+    /// Items to save in the database
+    enum CodingKeys: String, CodingKey {
+        /// Only save the options
+        case options
+    }
+}

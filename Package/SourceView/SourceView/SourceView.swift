@@ -35,8 +35,8 @@ public struct SourceView: AdwaitaWidget {
 
     /// The language
     var language: Language = .plain
-    /// The resources directory for the language
-    var languageResources: URL?
+    /// The snippets directory for the language
+    var snippets: URL?
 
     /// Init the editor
     public init(
@@ -86,11 +86,11 @@ public struct SourceView: AdwaitaWidget {
             }
             if
                 (storage.previousState as? Self)?.language != language ||
-                (storage.previousState as? Self)?.languageResources != languageResources {
+                (storage.previousState as? Self)?.snippets != snippets {
                 let languageName = SourceViewController.initLanguage(
                     buffer: controller.buffer,
                     language: language,
-                    resources: languageResources
+                    snippets: snippets
                 )
                 Idle {
                     editor.language.wrappedValue = languageName
@@ -157,13 +157,13 @@ public struct SourceView: AdwaitaWidget {
         }
     }
 
-    /// Set the resources directory for a language.
+    /// Set the snippets directory for a language.
     /// - Parameter url: The URL to the resources.
     /// - Returns: Self.
-    public func languageResources(_ url: URL?) -> Self {
+    public func snippets(_ url: URL?) -> Self {
         if let url {
             return modify { sourceView in
-                sourceView.languageResources = url
+                sourceView.snippets = url
             }
         }
         return self
@@ -250,6 +250,12 @@ public struct SourceView: AdwaitaWidget {
     public func spelling(_ spelling: Binding<Bool>) -> Self {
         modify { sourceView in
             sourceView.controller.spelling = spelling
+        }
+    }
+
+    public func scheme(_ scheme: Binding<String>) -> Self {
+        modify { sourceView in
+            sourceView.controller.scheme = scheme
         }
     }
 }

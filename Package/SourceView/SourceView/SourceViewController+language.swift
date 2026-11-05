@@ -18,13 +18,12 @@ extension SourceViewController {
     /// - Parameters:
     ///   - buffer: The text buffer.
     ///   - language: The language for text highlighting.
-    ///   - resources: Optional language definition and snippets.
-    static func initLanguage(buffer: ViewStorage, language: Language, resources: URL?) -> String? {
+    ///   - snippets: Optional snippets directory.
+    static func initLanguage(buffer: ViewStorage, language: Language, snippets: URL?) -> String? {
         let manager = gtk_source_language_manager_get_default()
-        if let resources {
-            let path = resources.path()
-            gtk_source_language_manager_append_search_path(manager, path)
-            addSnippetsPath(path)
+        gtk_source_language_manager_append_search_path(manager, SourceViewController.resourcesURL.path)
+        if let snippets {
+            addSnippetsPath(snippets.path())
         }
         let languageID = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.sourceBufferPointer, languageID)

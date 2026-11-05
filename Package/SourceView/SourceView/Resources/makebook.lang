@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<language id="makebook" name="MakeBook" version="2.0" _section="Source">
+    <metadata>
+        <property name="globs">*.makebook</property>
+        <property name="suggested-suffix">.makebook</property>
+    </metadata>
+
+    <definitions>
+        <context id="makebook">
+            <include>
+                <context ref="json:json"/>
+            </include>
+        </context>
+    </definitions>
+</language>

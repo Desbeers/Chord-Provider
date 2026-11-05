@@ -47,6 +47,7 @@ struct OptionsView: View {
             .suffix {
                 Text("%")
             }
+            SourceViewSchemeChooser(controller: appState.controller)
         }
         .halign(.center)
         .padding()

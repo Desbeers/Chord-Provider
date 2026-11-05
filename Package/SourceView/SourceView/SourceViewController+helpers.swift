@@ -125,4 +125,13 @@ extension SourceViewController {
             insertMark
         )
     }
+
+    /// The resources URL
+    static var resourcesURL: URL {
+        if let url = Bundle.module.url(forResource: "SourceView+light", withExtension: "xml") {
+            return url.deletingLastPathComponent()
+        }
+        // This should never happen
+        return URL(filePath: "")
+    }
 }

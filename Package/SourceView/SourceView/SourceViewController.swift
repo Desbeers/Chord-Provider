@@ -17,12 +17,16 @@ public final class SourceViewController {
     let view: ViewStorage
     /// The GTKTextBuffer
     let buffer: ViewStorage
+    /// The Scheme Chooser
+    let schemeChooser: ViewStorage
     /// Search settings
     let searchSettings: ViewStorage
     /// Search context
     let searchContext: ViewStorage
     /// State of the spelling checker
     @State var spelling: Binding<Bool> = .constant(false)
+    /// Scheme
+    @State var scheme: Binding<String> = .constant("Adwaita")
 
     // MARK: Snippets
 
@@ -75,6 +79,8 @@ public final class SourceViewController {
             ]
         )
 
+        schemeChooser = ViewStorage(gtk_source_style_scheme_chooser_button_new().opaque())
+
         // MARK: Snippets
 
         completion = gtk_source_view_get_completion(view.sourceViewPointer)
@@ -83,16 +89,34 @@ public final class SourceViewController {
 
         SourceViewController.initStyle(
             view: view,
-            buffer: buffer
+            buffer: buffer,
+            scheme: scheme.wrappedValue
         )
 
         gtk_source_init()
+
+        // MARK: Scheme
 
         // Spelling
 
         setupSpelling()
 
         // MARK: Connect signal callbacks
+
+        schemeChooser.notify(name: "style-scheme") {
+            let chooser = self.schemeChooser.opaquePointer
+            guard
+                let currentScheme = gtk_source_style_scheme_chooser_get_style_scheme(chooser),
+                let id = gtk_source_style_scheme_get_id(currentScheme)
+            else { return }
+            //gtk_button_set_label(self.schemeChooser.opaquePointer?.cast(), "Theme")
+            self.scheme.wrappedValue = String(cString: id)
+            SourceViewController.updateStyle(
+                view: self.view,
+                buffer: self.buffer,
+                scheme: self.scheme.wrappedValue
+            )
+        }
 
         sourceview_connect_signals(
             view.sourceViewPointer,

@@ -69,6 +69,7 @@
         "install -Dm755 .flatpak/swift/release/ChordProviderGnome /app/bin/ChordProvider",
         "cp -r .flatpak/swift/release/ChordProvider_ChordProviderGnome.bundle/ /app/bin",
         "cp -r .flatpak/swift/release/ChordProvider_ChordProviderCore.bundle/ /app/bin",
+        "cp -r .flatpak/swift/release/ChordProvider_SourceView.bundle/ /app/bin",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",
