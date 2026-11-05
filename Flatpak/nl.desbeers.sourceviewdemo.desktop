@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Source View Demo
+Comment=A demo of the Swift package
+Categories=GNOME;
+Icon=nl.desbeers.sourceviewdemo
+Exec=SourceViewDemo
+Terminal=false
+Keywords=demo
+MimeType=text/plain;

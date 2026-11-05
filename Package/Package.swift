@@ -5,6 +5,9 @@ import PackageDescription
 /// The dependencies
 var dependencies: [Package.Dependency] = [
     .package(
+        path: "../SourceView"
+    ),
+    .package(
         url: "https://codeberg.org/desbeers/adwaita-swift",
         branch: "main",
         traits: ["exposeGeneratedAppearUpdateFunctions"],
@@ -48,11 +51,6 @@ let package = Package(
             name: "GenerateSnippets",
             targets: ["GenerateSnippets"]
         ),
-        // Source View Demo
-        .executable(
-            name: "SourceViewDemo",
-            targets: ["SourceViewDemo"]
-        ),
 
         // MARK: Libraries
 
@@ -60,11 +58,6 @@ let package = Package(
         .library(
             name: "ChordProviderCore",
             targets: ["ChordProviderCore"]
-        ),
-        // Editor library
-        .library(
-            name: "SourceView",
-            targets: ["SourceView"]
         )
     ],
     dependencies: dependencies,
@@ -86,21 +79,13 @@ let package = Package(
             name: "ChordProviderGnome",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "SourceView", package: "SourceView"),
                 "ChordProviderCore",
-                "SourceView",
                 "ChordProviderMIDI"
             ],
             path: "ChordProviderGnome",
-            exclude: [
-                "Resources/nl.desbeers.chordprovider.desktop",
-                "Resources/nl.desbeers.chordprovider.metainfo.xml",
-                "Resources/nl.desbeers.chordprovider.mime.xml"
-            ],
             resources: [
-                .copy("Resources/nl.desbeers.chordprovider.svg"),
-                .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
-                .copy("Resources/nl.desbeers.chordprovider-mime.svg"),
-                .copy("Resources/chordpro.snippets"),
+                .copy("Resources"),
                 .copy("Samples")
             ]
         ),
@@ -111,15 +96,6 @@ let package = Package(
                 "ChordProviderCore"
             ],
             path: "GenerateSnippets",
-        ),
-        // Source View Demo
-        .executableTarget(
-            name: "SourceViewDemo",
-            dependencies: [
-                .product(name: "Adwaita", package: "adwaita-swift"),
-                "SourceView"
-            ],
-            path: "SourceView/SourceViewDemo",
         ),
 
         // MARK: Libraries
@@ -135,28 +111,7 @@ let package = Package(
                 .copy("Resources/GuitarSoundFont.sf2")
             ],
         ),
-        // Editor library
-        .target(
-            name: "SourceView",
-            dependencies: [
-                .product(name: "Adwaita", package: "adwaita-swift"),
-                "CSourceView",
-                "CLibSpelling"
-            ],
-            path: "SourceView/SourceView",
-            resources: [
-                .copy("Resources")
-            ]
-        ),
-        // C stuff for the editor library
-        .target(
-            name: "CSourceView",
-            dependencies: [
-                "CGtkSourceView"
-            ],
-            path: "SourceView/CSourceView",
-            publicHeadersPath: "include"
-        ),
+
         // MIDI player library
         .target(
             name: "ChordProviderMIDI",
@@ -181,23 +136,11 @@ let package = Package(
 
         // MARK: System Libraries
 
-        // GtkSourceView C stuff
-        .systemLibrary(
-            name: "CGtkSourceView",
-            path: "SourceView/CGtkSourceView",
-            pkgConfig: "gtksourceview-5"
-        ),
         // FluidSynth C stuff
         .systemLibrary(
             name: "CFluidSynth",
             path: "ChordProviderMIDI/CFluidSynth",
             pkgConfig: "fluidsynth"
         ),
-        // LibSpelling C stuff
-        .systemLibrary(
-            name: "CLibSpelling",
-            path: "SourceView/CLibSpelling",
-            pkgConfig: "libspelling-1"
-        )
     ]
 )

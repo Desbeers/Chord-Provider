@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>nl.desbeers.sourceviewdemo</id>
+
+  <name>Source View Demo</name>
+  <summary>A demo of the Swift package</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <releases>
+    <release version="1.0.0" date="2026-02-01">
+      <description>
+        <ul>
+          <li>Initial public release</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
+  <keywords>
+    <keyword>editor</keyword>
+  </keywords>
+
+  <categories>
+    <category>Utility</category>
+  </categories>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <content_rating type="oars-1.1"/>
+
+  <developer id="nl.desbeers">
+    <name translatable="no">Nick Berendsen</name>
+  </developer>
+
+  <description>
+    <p>
+      A simple demo of the Swift package to add a `GtkSourceView`.
+    </p>
+    <ul>
+  </description>
+
+  <url type="homepage">https://github.com/Desbeers/Chord-Provider</url>
+  <url type="bugtracker">https://github.com/Desbeers/Chord-Provider/issues</url>
+
+  <launchable type="desktop-id">nl.desbeers.sourceviewdemo.desktop</launchable>
+</component>

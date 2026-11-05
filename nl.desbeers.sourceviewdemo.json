@@ -1,0 +1,62 @@
+{
+  "id": "nl.desbeers.sourceviewdemo",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "51",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.swift6"
+  ],
+  "command": "SourceViewDemo",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--socket=wayland"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/swift6/bin",
+    "prepend-ld-library-path": "/usr/lib/sdk/swift6/lib"
+  },
+  "modules": [
+    {
+      "name": "libspelling",
+      "buildsystem": "meson",
+      "config-opts": [
+          "-Dintrospection=disabled",
+          "-Ddocs=false"
+      ],
+      "sources": [
+          {
+            "type": "archive",
+            "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+            "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
+            "x-checker-data": {
+                "type": "gnome",
+                "name": "libspelling"
+            }
+          }
+      ]
+    },
+    {
+      "name": "SourceViewDemo",
+      "builddir": true,
+      "buildsystem": "simple",
+      "sources": [
+        {
+          "type": "dir",
+          "path": "."
+        }
+      ],
+      "build-commands": [
+        "swift build --configuration release --package-path SourceView --cache-path .cache --build-path .flatpak/swift --static-swift-stdlib --product SourceViewDemo",
+        "install -Dm755 .flatpak/swift/release/SourceViewDemo /app/bin/SourceViewDemo",
+        "cp -r .flatpak/swift/release/SourceView_SourceView.bundle/ /app/bin",
+        "cp -r .flatpak/swift/release/SourceView_SourceViewDemo.bundle/ /app/bin",
+        "install -Dm644 SourceView/SourceViewDemo/Resources/nl.desbeers.sourceviewdemo.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.sourceviewdemo.svg",
+        "install -Dm644 SourceView/SourceViewDemo/Resources/nl.desbeers.sourceviewdemo-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.sourceviewdemo-symbolic.svg",
+        "install -Dm644 Flatpak/nl.desbeers.sourceviewdemo.metainfo.xml /app/share/metainfo/nl.desbeers.sourceviewdemo.metainfo.xml",
+        "install -Dm644 Flatpak/nl.desbeers.sourceviewdemo.desktop /app/share/applications/nl.desbeers.sourceviewdemo.desktop"
+      ]
+    }
+  ]
+}

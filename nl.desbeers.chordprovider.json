@@ -73,9 +73,9 @@
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",
-        "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
-        "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
-        "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.mime.xml /app/share/mime/packages/nl.desbeers.chordprovider.mime.xml",
+        "install -Dm644 Flatpak/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
+        "install -Dm644 Flatpak/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
+        "install -Dm644 Flatpak/nl.desbeers.chordprovider.mime.xml /app/share/mime/packages/nl.desbeers.chordprovider.mime.xml",
         "update-mime-database /app/share/mime",
         "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
       ]
