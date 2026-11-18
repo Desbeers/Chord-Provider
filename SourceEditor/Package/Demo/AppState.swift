@@ -16,7 +16,7 @@ struct AppState {
     /// The controller.
     var controller = Editor.Controller()
     /// The editor bridge.
-    var editor = Editor.Bridge()
+    var bridge = Editor.Bridge()
     /// Editor options.
     var options = Editor.Options()
     /// Last update of the content.

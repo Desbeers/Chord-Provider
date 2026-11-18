@@ -18,7 +18,7 @@ extension Editor {
         /// The GTKSourceView.
         let view: ViewStorage
         /// The GTKTextBuffer.
-        public let buffer: ViewStorage
+        let buffer: ViewStorage
         /// The spelling adaptor.
         var spellingAdaptor: OpaquePointer?
         /// Search settings.

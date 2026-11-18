@@ -20,7 +20,7 @@ struct OptionsView: View {
     var view: Body {
         VStack {
             ScrollView {
-                Text(appState.editor.language ?? "Unknown Language")
+                Text(appState.bridge.language ?? "Unknown Language")
                     .heading()
                     .padding(.top)
                 Form {

@@ -64,7 +64,7 @@ extension GtkRender {
                                 playingTabNotes: playTabNotes,
                                 currentColumnID: currentPartID,
                                 zoom: appState.settings.theme.zoom,
-                                accentColor: appState.editor.styleInfo.accent
+                                accentColor: appState.bridge.styleInfo.accent
                             )
                         case .emptyLine:
                             Views.Empty()

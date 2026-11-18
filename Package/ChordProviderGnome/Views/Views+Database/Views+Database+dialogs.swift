@@ -110,7 +110,7 @@ extension Views.Database {
                     Idle {
                         appState.settings.core.chordDefinitions = chords
                         databaseState.setFilteredChords(allChords: chords)
-                        appState.editor.command = .updateContent
+                        appState.controller.command(.updateContent)
                     }
                 }
             }

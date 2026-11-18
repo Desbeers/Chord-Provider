@@ -25,10 +25,9 @@ struct Demo: App {
         Window(id: "main") { window in
             MainView(app: app, window: window, appState: $appState)
             .inspectOnAppear { storage in
-                appState.controller.bridge = $appState.editor
                 // Setup the `GtkSourceView`controller
                 appState.controller.setup(
-                    bridge: $appState.editor,
+                    bridge: $appState.bridge,
                     scheme: $appState.options.scheme,
                     storage: storage,
                     onOpen: { result in
@@ -51,7 +50,7 @@ struct Demo: App {
             }
             if let text = try? String(contentsOf: fileURL, encoding: .utf8) {
                 appState.fileURL = fileURL
-                appState.editor.command = .newFile(text, url: fileURL)
+                appState.controller.command(.newFile(text, url: fileURL))
                 print("open file")
             } else {
                 print(fileURL)

@@ -13,8 +13,6 @@ extension Editor {
 /// The bridge between `GtkSourceView` and `Swift`.
 public struct Bridge {
 
-        /// The command for the editor.
-        public var command: Editor.Command?
         /// The current line number of the cursor.
         public var currentLineNumber: Int = 0
         /// The total number of lines.
@@ -28,10 +26,12 @@ public struct Bridge {
         public var focusSearch = Signal()
         /// A signal to focus replace in the editor.
         public var focusReplace = Signal()
+
         /// The state of the search for the bridge.
-        public var search = Search()
+        var search = Search()
         /// Bool to show the search bar.
         public var showSearchBar: Bool = false
+
         /// The current language of the Source View.
         public var language: String?
         /// Information about the styles of the scheme.

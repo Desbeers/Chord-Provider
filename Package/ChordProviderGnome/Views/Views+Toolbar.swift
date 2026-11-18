@@ -55,7 +55,7 @@ extension Views.Toolbar {
                         isOn: $appState.settings.showEditor.onSet {state in
                             if !state {
                                 /// Search is only in the editor, make sure its closed
-                                appState.editor.showSearchBar = false
+                                appState.bridge.showSearchBar = false
                             }
                         }
                     )
@@ -124,12 +124,12 @@ extension Views.Toolbar {
                         .keyboardShortcut("s".ctrl().shift())
                         MenuSection {
                             MenuButton("Find/Replace") {
-                                appState.editor.showSearchBar.toggle()
-                                if appState.editor.showSearchBar {
+                                appState.bridge.showSearchBar.toggle()
+                                if appState.bridge.showSearchBar {
                                     /// Search is only in the editor, make sure its open
                                     appState.settings.showEditor = true
                                     /// Focus the search field
-                                    appState.editor.focusSearch.signal()
+                                    appState.bridge.focusSearch.signal()
                                 } else if appState.settings.showEditor {
                                     /// Focus the editor
                                     appState.scene.focusEditor.signal()

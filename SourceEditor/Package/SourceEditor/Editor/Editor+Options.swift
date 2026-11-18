@@ -18,6 +18,8 @@ extension Editor {
         public var highlightCurrentLine: Bool = true
         /// The font size of the editor, as a percentage.
         public var fontSize: Int = 100
+        /// Bool to use a monospace font
+        public var monoSpaceFont: Bool = true
         /// Bool if spelling is enabled.
         public var spelling: Bool = false
         /// The scheme.

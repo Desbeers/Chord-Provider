@@ -45,7 +45,7 @@ extension AppState {
             settings.core.templateURL = templateURL
         }
         // Search must be closed
-        editor.showSearchBar = false
+        bridge.showSearchBar = false
         // Reset transpose
         settings.core.transpose = 0
         // Don't show the previous song because the rendering has some delay

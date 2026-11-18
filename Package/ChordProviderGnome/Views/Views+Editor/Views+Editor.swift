@@ -25,7 +25,7 @@ extension Views {
                 Inserts(appState: $appState)
                     .padding(5)
                     .halign(.center)
-                EditorSearch(bridge: $appState.editor)
+                EditorSearch(controller: appState.controller)
                 Separator()
                 HStack {
                     ScrollView {
@@ -141,8 +141,10 @@ extension Views {
                     /// Nothing to do
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
-                    appState.editor.command = .replaceAllText(
-                        appState.song.allLines.map(\.sourceParsed).joined(separator: "\n")
+                    appState.controller.command(
+                        .replaceAllText(
+                            appState.song.allLines.map(\.sourceParsed).joined(separator: "\n")
+                        )
                     )
                 }
                 Toggle(icon: .default(icon: .sidebarShowRight), isOn: $appState.settings.editor.showMiniMap)

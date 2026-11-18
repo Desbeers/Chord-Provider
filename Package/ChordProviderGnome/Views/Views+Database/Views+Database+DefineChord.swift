@@ -109,7 +109,7 @@ extension Views.Database {
                                 databaseState.chord = definition.root
                                 databaseState.definition = definition
                                 databaseState.showDefinitionDialog = false
-                                appState.editor.command = .updateContent
+                                appState.controller.command(.updateContent)
                             }
                         }
                         .suggested()

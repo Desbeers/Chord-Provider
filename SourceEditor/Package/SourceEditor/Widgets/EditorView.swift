@@ -128,13 +128,6 @@ public struct EditorView: AdwaitaWidget {
                 if controller.currentSearchText != controller.bridge.search.search.wrappedValue {
                     controller.setSearchText(controller.bridge.search.search.wrappedValue)
                 }
-                // Handle command
-                // - Note: Don't use a mutating method through the binding here;
-                //         it writes back on every update and causes an endless loop.
-                if let command = controller.bridge.wrappedValue.command {
-                    controller.bridge.wrappedValue.command = nil
-                    controller.handle(command)
-                }
                 gtk_source_search_context_set_highlight(
                     controller.searchContext.opaquePointer,
                     controller.bridge.showSearchBar.wrappedValue.cBool

@@ -10,15 +10,18 @@ import Adwaita
 /// The `View` with search.
 public struct EditorSearch: View {
 
+    /// The editor controller.
+    let controller: Editor.Controller
     /// The editor bridge.
     @Binding var bridge: Editor.Bridge
     /// Bool to show the options.
     @State private var showOptions: Bool = false
 
     /// Init the `View`.
-    /// - Parameter bridge: The connection between the editor and Swift.
-    public init(bridge: Binding<Editor.Bridge>) {
-        self._bridge = bridge
+    /// - Parameter controller: The editor controller.
+    public init(controller: Editor.Controller) {
+        self.controller = controller
+        self._bridge = controller.bridge
     }
 
     /// The body of the `View`.
@@ -41,12 +44,12 @@ public struct EditorSearch: View {
                     .warning(bridge.search.noMatches)
                 HStack {
                     Button(icon: .default(icon: .goUp)) {
-                        bridge.command = .search(.previous)
+                        controller.command(.search(.previous))
                     }
                     .keyboardShortcut("g".shift().ctrl(), active: bridge.showSearchBar)
                     .tooltip("Previous")
                     Button(icon: .default(icon: .goDown)) {
-                        bridge.command = .search(.next)
+                        controller.command(.search(.next))
                     }
                     .keyboardShortcut("g".ctrl(), active: bridge.showSearchBar)
                     .tooltip("Next")
@@ -96,11 +99,15 @@ public struct EditorSearch: View {
                 .focus($bridge.focusReplace)
             HStack {
                 Button("Replace") {
-                    bridge.command = .replaceSearchMatch(with: bridge.search.replace)
+                    controller.command(
+                        .replaceSearchMatch(
+                            with: bridge.search.replace
+                        )
+                    )
                 }
                 .insensitive(bridge.search.replace.isEmpty || !bridge.search.hasMatch)
                 Button("Replace All") {
-                    bridge.command = .replaceAllSearchMatches(with: bridge.search.replace)
+                    controller.command(.replaceAllSearchMatches(with: bridge.search.replace))
                 }
                 .insensitive(bridge.search.replace.isEmpty || !bridge.search.haveMatches)
             }
@@ -116,15 +123,15 @@ public struct EditorSearch: View {
             .popover(visible: $showOptions) {
                 VStack {
                     Toggle("Match Whole Word Only", isOn: $bridge.search.matchWholeWordOnly.onSet { state in
-                        bridge.command = .matchWholeWordOnly(state)
+                        controller.command(.matchWholeWordOnly(state))
                     })
                     .checkButton()
                     Toggle("Case Sensitive", isOn: $bridge.search.caseSensitive.onSet { state in
-                        bridge.command = .caseSensitive(state)
+                        controller.command(.caseSensitive(state))
                     })
                     .checkButton()
                     Toggle("Regular Expressions", isOn: $bridge.search.regularExpressions.onSet { state in
-                        bridge.command = .regularExpressions(state)
+                        controller.command(.regularExpressions(state))
                     })
                     .checkButton()
                 }

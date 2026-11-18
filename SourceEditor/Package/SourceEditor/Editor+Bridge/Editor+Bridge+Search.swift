@@ -10,41 +10,41 @@ import CGtkSourceView
 extension Editor.Bridge {
 
     /// The state of the search for the bridge.
-    public struct Search {
+    struct Search {
 
         /// The search string.
-        public var search: String = ""
+        var search: String = ""
         /// The replacement string.
-        public var replace: String = ""
+        var replace: String = ""
         /// Start of the current match.
         var matchStart = GtkTextIter()
         /// End of the current match.
         var matchEnd = GtkTextIter()
         /// The count of matches.
-        public var matchesCount = 0
+        var matchesCount = 0
         /// The index of the current match.
-        public var currentMatchIndex = 0
+        var currentMatchIndex = 0
         /// Bool to show replace options.
-        public var showReplaceOptions: Bool = false
+        var showReplaceOptions: Bool = false
 
         // MARK: Search options.
 
         /// Bool to search with regular expressions.
-        public var regularExpressions: Bool = false
+        var regularExpressions: Bool = false
         /// Bool if search is case sensitive.
-        public var caseSensitive: Bool = false
+        var caseSensitive: Bool = false
         /// Bool if whole words should be matched.
-        public var matchWholeWordOnly: Bool = false
+        var matchWholeWordOnly: Bool = false
 
         // MARK: Calculated stuff.
 
         /// Bool if a match is active.
-        public var hasMatch: Bool {
+        var hasMatch: Bool {
             currentMatchIndex > 0
         }
 
         /// Display the counter result.
-        public var countDisplay: String {
+        var countDisplay: String {
             var result = ""
             if search.isEmpty || !haveMatches {
                 // Don't display anything, the 'search field' will have a *warning* style
@@ -63,12 +63,12 @@ extension Editor.Bridge {
         }
 
         /// Bool if there are matches.
-        public var haveMatches: Bool {
+        var haveMatches: Bool {
             matchesCount > 0
         }
 
         /// Bool if there are no matches.
-        public var noMatches: Bool {
+        var noMatches: Bool {
             !search.isEmpty && !haveMatches
         }
     }

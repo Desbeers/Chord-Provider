@@ -32,8 +32,8 @@ struct AppState {
     /// The songs library
     var library = Library()
     /// The source view bridge
-    var editor = Editor.Bridge()
-    /// The `GtkSourceEditor` class to communicate with `Swift`
+    var bridge = Editor.Bridge()
+    /// The `GtkSourcebridge. class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller = Editor.Controller(resources: AppState.resourcesDirectory)
     /// The `Adwaita` style manager
@@ -101,7 +101,7 @@ extension AppState {
     /// Bool if the content of the song is modified
     /// - Note: Comparing the source with the original source
     var contentIsModified: Bool {
-        editor.modified
+        bridge.modified
     }
 }
 
@@ -120,7 +120,7 @@ extension AppState {
 
     /// Update the song.
     /// - Parameter content: The content of the song.
-    /// - Returns: Optional marks for the editor.
+    /// - Returns: Optional marks for the bridge.
     mutating func updateSong(content: String) -> [SourceMark] {
         LogUtils.shared.clearLog()
         song = ChordProParser.parse(
@@ -152,6 +152,6 @@ extension AppState {
     /// Set the current song line of the editor
     mutating func setCurrentLine() {
         let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
-        currentLine = lines[safe: editor.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: editor.lineCount)
+        currentLine = lines[safe: bridge.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: bridge.lineCount)
     }
 }

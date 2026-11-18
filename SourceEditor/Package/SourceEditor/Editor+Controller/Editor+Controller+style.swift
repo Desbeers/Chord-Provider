@@ -33,7 +33,7 @@ extension Editor.Controller {
     }
 
     /// Update the editor style.
-    public func updateStyle() {
+    func updateStyle() {
         let gtkStyleManager = gtk_source_style_scheme_manager_get_default()
         let style = gtk_source_style_scheme_manager_get_scheme(gtkStyleManager, scheme.wrappedValue)
         gtk_source_buffer_set_style_scheme(buffer.sourceBufferPointer, style)
@@ -167,7 +167,7 @@ extension Editor.Controller {
     /// All styles of a scheme that are listed in `StyleID`.
     /// - Parameter scheme: The scheme ID; optional, defaults to the current scheme.
     /// - Returns: The style IDs with their info. Styles that the scheme does not define are skipped.
-    public func allStyleInfo(_ scheme: String? = nil) -> [Editor.StyleInfo] {
+    func allStyleInfo(_ scheme: String? = nil) -> [Editor.StyleInfo] {
         Editor.StyleID.allCases.compactMap { id in
             styleInfo(id, scheme)
         }

@@ -84,7 +84,7 @@ extension AppState {
     mutating func setDatabase(_ database: ChordsDatabase, main: Bool) {
         settings.core.instrument = database.instrument
         settings.core.chordDefinitions = database.definitions.sorted()
-        editor.command = .updateContent
+        controller.command(.updateContent)
         if !database.errors.isEmpty {
             let warnings = database.errors.compactMap(\.failureReason).joined(separator: "\n")
             scene.throwError(

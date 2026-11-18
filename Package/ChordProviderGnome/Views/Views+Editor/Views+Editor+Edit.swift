@@ -165,7 +165,7 @@ extension Views.Editor {
                 Separator()
                 HStack(spacing: 10) {
                     Button("Cancel") {
-                        appState.editor.command = .clearSelection
+                        appState.controller.command(.clearSelection)
                         appState.scene.showEditDirectiveDialog = false
                         appState.scene.handleDirective = nil
                     }
@@ -189,9 +189,9 @@ extension Views.Editor {
                             appState.currentLine.arguments = arguments
                         }
                         let directiveArgument = ChordProParser.argumentsToString(appState.currentLine) ?? ""
-                        let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
+                        let directiveFormat = directive.format(wrap: appState.bridge.hasSelection)
                         let replacement = "\(directiveFormat.start)\(directiveArgument)\(directiveFormat.end)"
-                        appState.editor.command = .replaceLineText(replacement)
+                        appState.controller.command(.replaceLineText(replacement))
                         appState.scene.showEditDirectiveDialog = false
                         appState.scene.handleDirective = nil
                     }

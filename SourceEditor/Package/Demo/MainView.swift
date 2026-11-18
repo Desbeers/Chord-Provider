@@ -23,7 +23,7 @@ struct MainView: View {
     var view: Body {
         HStack {
             VStack {
-                EditorSearch(bridge: $appState.editor)
+                EditorSearch(controller: appState.controller)
                 HStack {
                     ScrollView {
                         EditorView(controller: appState.controller)
@@ -43,7 +43,7 @@ struct MainView: View {
                         .css {
                             """
                             .editor.sourceview {
-                                font-family: \(appState.monoSpaceFont ? "Monospace" : "Sans");
+                                font-family: \(appState.options.monoSpaceFont ? "Monospace" : "Sans");
                                 font-size: \(Double(appState.options.fontSize) / 100)em;
                             }
                             """
@@ -64,7 +64,7 @@ struct MainView: View {
                 .frame(minWidth: 200)
                 .style("source-view-options")
                 .css {
-                    let colors = appState.editor.css(colorfull: appState.options.colorfullWindow)
+                    let colors = appState.bridge.css(colorfull: appState.options.colorfullWindow)
                     return """
                     \(colors)
                     .boxed-list {
@@ -77,7 +77,7 @@ struct MainView: View {
         .topToolbar {
             HeaderBar {
                 Button("New") {
-                    appState.editor.command = .newFile("Welcome to your new file!")
+                    appState.controller.command(.newFile("Welcome to your new file!"))
                 }
                 Button("Open") {
                     appState.openFile.signal()
@@ -109,12 +109,12 @@ struct MainView: View {
                             //     }
                             // }
                     }
-                    .enabled(appState.editor.modified, "Save")
+                    .enabled(appState.bridge.modified, "Save")
                     MenuButton("Find/Replace") {
-                        appState.editor.showSearchBar.toggle()
-                        if appState.editor.showSearchBar {
+                        appState.bridge.showSearchBar.toggle()
+                        if appState.bridge.showSearchBar {
                             // Focus the search field
-                            appState.editor.focusSearch.signal()
+                            appState.bridge.focusSearch.signal()
                         }
                     }
                     .keyboardShortcut("f".ctrl())
@@ -135,10 +135,10 @@ struct MainView: View {
         }
         .bottomToolbar {
             HStack {
-                Text("Line \(appState.editor.currentLineNumber)")
+                Text("Line \(appState.bridge.currentLineNumber)")
                     .halign(.start)
                     .hexpand()
-                Text(appState.editor.modified ? "Modified" : "")
+                Text(appState.bridge.modified ? "Modified" : "")
                 Text("Last text update: \(appState.lastUpdate.formatted(date: .omitted, time: .standard))")
             }
             .style("caption")
@@ -147,7 +147,7 @@ struct MainView: View {
         //.bottomBarStyle(.raised)
         .onAppear {
             if appState.fileURL == nil {
-                appState.editor.command = .newFile(welcomeText)
+                appState.controller.command(.newFile(welcomeText))
             }
         }
         .fileImporter(
@@ -164,21 +164,14 @@ struct MainView: View {
                     completion: { result in
                         switch result {
                             case .success:
-                            print(appState.editor.language?.description)
+                            print("View Callback")
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
                     }
                 )
             )
-            // appState.controller.open(fileURL) { result in
-            //     switch result {
-            //         case .success:
-            //         print("All fine")
-            //     case .failure(let error):
-            //         print(error.localizedDescription)
-            //     }
-            // }
+            //appState.controller.scheme
         }
     }
 }

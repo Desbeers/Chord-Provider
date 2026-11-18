@@ -119,7 +119,7 @@ extension Views.Main {
             }
         }
         .response("Save", appearance: .suggested, role: .default) {
-            if let fileURL = appState.editor.fileURL {
+            if let fileURL = appState.bridge.fileURL {
                 appState.controller.command(.save())
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:

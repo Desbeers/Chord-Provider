@@ -26,7 +26,7 @@ extension Views.Editor {
                     .style(.editorButton)
                     .popover(visible: $insert.showMetadata) {
                         VStack {
-                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                            Text("\(appState.bridge.hasSelection ? "Wrap" : "Insert")")
                                 .style(.addToEditorLabel)
                                 .padding(.bottom)
                             Separator()
@@ -38,17 +38,17 @@ extension Views.Editor {
                             }
                         }
                     }
-                    .insensitive(!appState.editor.isAtBeginningOfLine)
+                    .insensitive(!appState.bridge.isAtBeginningOfLine)
                 Toggle("Environment", isOn: $insert.showEnvironment)
                     .style(.editorButton)
                     .popover(visible: $insert.showEnvironment) {
                         VStack {
-                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                            Text("\(appState.bridge.hasSelection ? "Wrap" : "Insert")")
                                 .style(.addToEditorLabel)
                                 .padding(.bottom)
                             Separator()
                             ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
+                                let directiveFormat = directive.format(wrap: appState.bridge.hasSelection)
                                 addInsert(
                                     directive: directive,
                                     command: .insertMarker(
@@ -60,14 +60,14 @@ extension Views.Editor {
                             }
                         }
                     }
-                    .insensitive(!appState.editor.isAtBeginningOfLine)
+                    .insensitive(!appState.bridge.isAtBeginningOfLine)
                 Toggle("More...", isOn: $insert.showMore)
                     .style(.editorButton)
                     .popover(visible: $insert.showMore) {
                         VStack {
                             addInsert(directive: .define, command: nil)
                             Button("Add all Chord definitions") {
-                                appState.editor.command = .appendText(appState.song.definitions)
+                                appState.controller.command(.appendText(appState.song.definitions))
                                 insert.showMore.toggle()
                             }
                             .flat()
@@ -75,9 +75,9 @@ extension Views.Editor {
                             addInsert(directive: .comment, command: nil)
                         }
                     }
-                    .insensitive(!appState.editor.isAtBeginningOfLine)
+                    .insensitive(!appState.bridge.isAtBeginningOfLine)
             }
-            .insensitive(appState.editor.showSearchBar)
+            .insensitive(appState.bridge.showSearchBar)
         }
 
         /// The `View` with an insert button
@@ -90,13 +90,15 @@ extension Views.Editor {
             Button(label) {
                 if let command {
                     /// Apply the command
-                    appState.editor.command = command
-                } else if appState.editor.hasSelection {
-                    let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
-                    appState.editor.command = .insertMarker(
-                        start: directiveFormat.start,
-                        end: directiveFormat.end,
-                        block: directiveFormat.block
+                    appState.controller.command(command)
+                } else if appState.bridge.hasSelection {
+                    let directiveFormat = directive.format(wrap: appState.bridge.hasSelection)
+                    appState.controller.command(
+                        .insertMarker(
+                            start: directiveFormat.start,
+                            end: directiveFormat.end,
+                            block: directiveFormat.block
+                        )
                     )
                 } else {
                     /// Set the `directive`

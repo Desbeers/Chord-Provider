@@ -55,7 +55,7 @@ struct ChordProviderApp: App {
                 recentSongs: $recentSongs
             )
             .css {
-                appState.editor.css(colorfull: appState.settings.editor.colorfullWindow)
+                appState.bridge.css(colorfull: appState.settings.editor.colorfullWindow)
             }
             .inspectOnAppear { storage in
                 // Init the chords database
@@ -63,7 +63,7 @@ struct ChordProviderApp: App {
 
                 // Setup the `GtkSourceView`controller
                 appState.controller.setup(
-                    bridge: $appState.editor,
+                    bridge: $appState.bridge,
                     scheme: $appState.settings.editor.scheme,
                     storage: storage,
                     onNew: {
