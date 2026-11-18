@@ -9,6 +9,7 @@ import Foundation
 import Adwaita
 import CAdw
 import ChordProviderCore
+import SourceEditor
 
 extension GtkRender.TabSection {
 
@@ -24,7 +25,7 @@ extension GtkRender.TabSection {
         /// The zoom factor
         let zoom: Double
         /// The current accent color
-        let color: (red: UInt16, green: UInt16, blue: UInt16)
+        let accentColor: Editor.Color
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -34,7 +35,7 @@ extension GtkRender.TabSection {
                         .inspect { storage, _ in
                             line.highlight(
                                 storage: storage,
-                                color: color,
+                                accentColor: accentColor,
                                 playingTabNotes: playingTabNotes,
                                 currentColumnID: currentColumnID,
                                 zoom: zoom

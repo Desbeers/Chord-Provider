@@ -181,7 +181,7 @@ extension Views {
                             .hscrollbarPolicy(.never)
                             .caption()
                             .halign(.center)
-                            .style(.error)
+                            .error()
                             .transition(.crossfade)
                         }
                     }

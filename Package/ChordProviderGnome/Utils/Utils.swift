@@ -7,9 +7,7 @@
 
 import Foundation
 import Adwaita
-import CAdw
 import ChordProviderCore
-import RegexBuilder
 
 /// General utils shared in the application
 enum Utils {

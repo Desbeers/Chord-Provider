@@ -18,6 +18,8 @@ public enum ChordProviderError: LocalizedError, Equatable {
     case jsonDecoderError(error: String, context: String? = nil)
     /// There are no chords defined
     case noChordsDefined
+    /// File could not be opened
+    case fileNotOpened(error: String)
     /// File could not be saved
     case fileNotSaved(error: String)
     /// Warnings when importing a database
@@ -36,6 +38,8 @@ public enum ChordProviderError: LocalizedError, Equatable {
         switch self {
         case .fileNotFound:
             "The file is not found"
+        case .fileNotOpened:
+            "Could not open the file"
         case .fileNotSaved:
             "Could not save the file"
         case .databaseNotFound:
@@ -78,6 +82,8 @@ public enum ChordProviderError: LocalizedError, Equatable {
     /// The reason of the error
     public var failureReason: String? {
         switch self {
+        case .fileNotOpened(let error):
+            error
         case .fileNotSaved(let error):
             error
         case .databaseNotFound:
@@ -120,7 +126,7 @@ public enum ChordProviderError: LocalizedError, Equatable {
             "Some chord definitions are ignored"
         case .databaseImportWarning:
             nil
-        case .databaseExportError, .fileNotSaved:
+        case .databaseExportError, .fileNotOpened, .fileNotSaved:
             nil
         }
     }

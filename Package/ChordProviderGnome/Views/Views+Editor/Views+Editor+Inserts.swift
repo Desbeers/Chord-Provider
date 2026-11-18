@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import SourceView
+import SourceEditor
 
 extension Views.Editor {
 
@@ -84,7 +84,7 @@ extension Views.Editor {
         @ViewBuilder
         func addInsert(
             directive: ChordPro.Directive,
-            command: SourceViewCommand?
+            command: Editor.Command?
         ) -> Body {
             let label = "\(directive.details.buttonLabel ?? directive.details.label)"
             Button(label) {

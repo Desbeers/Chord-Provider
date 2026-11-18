@@ -84,17 +84,17 @@ extension Views.Main {
 
         // MARK: Save Song dialog
 
-        /// The **Alert dialog** when a song is changed but not yet saved
+        /// The **Alert dialog** when a song is modified but not saved.
         .alertDialog(
-            visible: $appState.scene.showCloseDialog,
+            visible: $appState.scene.showModifiedSongDialog,
             heading: "Save Changes?",
             id: "dirty-dialog"
         ) {
             /// - Note: I use `extraChild` instead of `body` so I can use markup
             VStack {
-                Text("<b>\(appState.song.metadata.title)</b> is modified.")
+                Text("<b>\(appState.song.metadata.title)</b> is modified")
                     .useMarkup()
-                    .style(.subtitle)
+                    .heading()
                     .padding(.bottom)
                 Text("Changes which are not saved will be permanently lost.")
             }
@@ -105,13 +105,13 @@ extension Views.Main {
             // Do nothing
         }
         .response("Discard", appearance: .destructive, role: .none) {
-            /// Make the source 'clean' so we can close the window
-            appState.scene.originalContent = appState.song.content
+            // Mark as *clean* or else it becomes a loop.
+            appState.controller.command(.markAsUnmodified)
             switch appState.scene.saveDoneAction {
             case .closeWindow:
                 window.close()
             case .showHomeView:
-                appState.scene.showHomeView = true
+                appState.scene.viewStatus = .showHomeView
             case .openURL(let url):
                 appState.openSong(fileURL: url)
             case .noAction:
@@ -119,18 +119,13 @@ extension Views.Main {
             }
         }
         .response("Save", appearance: .suggested, role: .default) {
-            if let fileURL = appState.settings.core.fileURL {
-                appState.saveSong()
-                /// Add it to the recent songs list
-                recentSongs.addRecentSong(
-                    content: appState.scene.originalContent,
-                    coreSettings: appState.settings.core
-                )
+            if let fileURL = appState.editor.fileURL {
+                appState.controller.command(.save())
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     window.close()
                 case .showHomeView:
-                    appState.scene.showHomeView = true
+                    appState.scene.viewStatus = .showHomeView
                 case .openURL(let url):
                     appState.openSong(fileURL: url)
                 case .noAction:
@@ -140,7 +135,6 @@ extension Views.Main {
                 }
             } else {
                 /// The song has not yet been saved; show the *Save As* dialog
-                appState.settings.core.export.format = .chordPro
                 appState.scene.saveSongAs.signal()
             }
         }

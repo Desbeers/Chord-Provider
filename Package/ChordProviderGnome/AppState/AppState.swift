@@ -7,7 +7,7 @@
 
 import Foundation
 import ChordProviderCore
-import SourceView
+import SourceEditor
 import Adwaita
 import CAdw
 
@@ -32,16 +32,14 @@ struct AppState {
     /// The songs library
     var library = Library()
     /// The source view bridge
-    var editor = SourceViewBridge()
+    var editor = Editor.Bridge()
     /// The `GtkSourceEditor` class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
-    var controller = SourceViewController()
+    var controller = Editor.Controller(resources: AppState.resourcesDirectory)
     /// The `Adwaita` style manager
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
-    /// The accent colors for Pango markup
-    var pangoAccentColor: (red: UInt16, green: UInt16, blue: UInt16) = (red: 0, green: 0, blue: 0)
     /// The current song
     var song = Song(id: UUID())
     /// The current cursor line
@@ -54,25 +52,40 @@ extension AppState {
 
     /// The title of the `Scene`
     var title: String {
-        self.song.metadata.title
+        song.hasContent ? song.metadata.title : "Chord Provider"
+        // switch scene.viewStatus {
+        // case .showHomeView:
+        //
+        // }
+        // self.song.metadata.title
     }
 
     /// The subtitle of the `Scene`
     var subtitle: String {
-        let metadata = self.song.metadata
-        var result: [String] = [metadata.subtitle ?? metadata.artist]
-            if let album = metadata.album {
-                result.append(album)
+
+        switch scene.viewStatus {
+        case .openingSong:
+            return "Opening Song"
+        default:
+            if song.hasContent {
+                let metadata = self.song.metadata
+                var result: [String] = [metadata.subtitle ?? metadata.artist]
+                    if let album = metadata.album {
+                        result.append(album)
+                    }
+                    if contentIsModified {
+                        result.append("modified")
+                    }
+                    return result.joined(separator: " · ")
+            } else {
+                return "Empty song"
             }
-            if contentIsModified {
-                result.append("modified")
-            }
-            return result.joined(separator: " · ")
+        }
     }
 
     /// The resources directory of the bundle.
-    var resourcesDirectory: URL? {
-        if let url = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
+    static var resourcesDirectory: URL? {
+        if let url = Bundle.module.url(forResource: "chordpro", withExtension: "snippets") {
             return url.deletingLastPathComponent()
         }
         return nil
@@ -82,13 +95,13 @@ extension AppState {
     var overviewTitle: String {
         let appName = "Chord Provider"
         let fileName = settings.core.fileURL?.deletingPathExtension().lastPathComponent
-        return scene.showHomeView ? appName : fileName ?? appName
+        return scene.viewStatus == .showHomeView ? appName : fileName ?? appName
     }
 
     /// Bool if the content of the song is modified
     /// - Note: Comparing the source with the original source
     var contentIsModified: Bool {
-        song.content != scene.originalContent
+        editor.modified
     }
 }
 
@@ -129,6 +142,7 @@ extension AppState {
                 )
             }
         }
+        scene.viewStatus = .showMainView
         return markers
     }
 }
@@ -138,6 +152,6 @@ extension AppState {
     /// Set the current song line of the editor
     mutating func setCurrentLine() {
         let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
-        currentLine = lines[safe: editor.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: editor.totalLineNumbers)
+        currentLine = lines[safe: editor.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: editor.lineCount)
     }
 }

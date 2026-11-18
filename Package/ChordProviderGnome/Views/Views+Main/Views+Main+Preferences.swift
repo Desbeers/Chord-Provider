@@ -10,7 +10,7 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderMIDI
 import CAdw
-import SourceView
+import SourceEditor
 
 extension Views.Main {
 
@@ -27,6 +27,19 @@ extension Views.Main {
             .preferencesDialog(visible: $appState.scene.showPreferencesDialog)
             .preferencesPage("General", icon: .default(icon: .applicationsSystem)) { page in
                 page
+                    .group("Appearance") {
+                        ActionRow()
+                            .prefix {
+                                EditorSchemePicker(
+                                    controller: appState.controller,
+                                    customOnly: true
+                                )
+                            }
+                        SwitchRow()
+                            .title("Dynamic recolering")
+                            .subtitle("Recoler the window with the theme colors.")
+                            .active($appState.settings.editor.colorfullWindow)
+                    }
                     .group("Display your song") {
                         SwitchRow()
                             .title("Show only lyrics")
@@ -40,33 +53,6 @@ extension Views.Main {
                     .group("Sorting of songs and artists") {
                         Views.SortTokens(sortTokens: $appState.settings.core.sortTokens)
                             .card()
-                    }
-                    .group("Appearance") {
-                        ComboRow(
-                            "Color Scheme",
-                            selection: $appState.settings.theme.appearance.onSet { value in
-                                // Apply the appearance directly or else its one step behind
-                                adw_style_manager_set_color_scheme(appState.styleManager, value.colorScheme)
-                            },
-                            values: AppSettings.Theme.Appearance.allCases
-                        )
-                            .subtitle("Preferred Color Scheme")
-                        SwitchRow()
-                            .title("Colorful Window")
-                            .subtitle("Use a more colorful style for the window background")
-                            .active($appState.settings.theme.colorfullWindow)
-                        ComboRow(
-                            "Color Theme",
-                            selection: $appState.settings.theme.colorScheme,
-                            values: AppSettings.ColorScheme.allCases
-                        )
-                            .subtitle("Preferred Color Theme")
-                    }
-                    .group("Debug") {
-                        SwitchRow()
-                            .title("Debug")
-                            .subtitle("Show debug additions")
-                            .active($appState.settings.app.debug)
                     }
             }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
@@ -91,9 +77,6 @@ extension Views.Main {
                                     value: $appState.settings.theme.editorFontSize
                                 )
                             }
-                    }
-                    .group("Theme") {
-                        SourceViewSchemePicker(controller: appState.controller)
                     }
                     .group("Errors and Warnings") {
                         SwitchRow()

@@ -27,11 +27,8 @@ extension Views.Home {
         HStack {
             Button("") {
                 appState.openSong(fileURL: fileURL)
-                recentSongs.addRecentSong(
-                    content: appState.scene.originalContent,
-                    coreSettings: appState.settings.core
-                )
-                appState.scene.showToast.signal()
+                // print("TOAST")
+                // appState.scene.showToast.signal()
             }
             .child {
                 VStack {
@@ -41,7 +38,7 @@ extension Views.Home {
                     if !songTitleOnly {
                         Text(metadata.artist)
                             .halign(.start)
-                            .style(.plainButton)
+                            .body()
                     }
                 }
                 .valign(.center)

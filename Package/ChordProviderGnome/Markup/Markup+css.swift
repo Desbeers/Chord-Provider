@@ -34,10 +34,10 @@ extension Markup {
         case underline
         /// Caption text, typically smaller or secondary
         case caption
-        /// Primary song title
-        case title = "song-title"
-        /// Secondary title, such as a subtitle or artist
-        case subtitle = "song-subtitle"
+        // /// Primary song title
+        // case title = "song-title"
+        // /// Secondary title, such as a subtitle or artist
+        // case subtitle = "song-subtitle"
         /// Metadata display, such as author, tempo, or key
         case metadata
         /// Represents an intentionally empty line
@@ -153,54 +153,22 @@ extension Markup {
 
     /// The CSS declarations
     static func css(theme: AppSettings.Theme, dark: Bool) -> String {
-        let colors = theme.colorScheme.colors(dark: dark)
 
 return """
 :root {
-    --chordprovider-window-start: \(colors.windowStart);
-    --chordprovider-window-end: \(colors.windowEnd);
+    --chordprovider-window-start: var(--window-bg-color);
+    --chordprovider-window-end: var(--window-bg-color);
 
-    --chordprovider-chord-color: \(colors.chordColor);
+    --chordprovider-chord-color: var(--chord-render);
 
-    --chordprovider-label-bg-color: \(colors.labelBackgroundColor);
+    --chordprovider-label-bg-color: var(--headerbar-shade-color);
 }
 
-\(theme.colorfullWindow ? """
-
-/* Window Background */
-
-window, dialog sheet {
-    background-image: linear-gradient(135deg, var(--chordprovider-window-start), var(--chordprovider-window-end));
+.symbolic-app-icon-background {
+    background-image: linear-gradient(180deg, var(--icon-background-start), var(--icon-background-end));
+    border-radius: 1em;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4);
 }
-
-.sidebar-pane {
-    background-color: var(--chordprovider-window-start);
-}
-""" : "")
-
-\(theme.colorScheme != .accent ? """
-
-/* Accent Color */
-
-:root {
-    --accent-bg-color: \(colors.accentBackgroundColor);
-}
-""" : "")
-
-/* Links: make the always blue insead of accent color */
-
-label.link {
-    --accent-color: \(dark ? "#8ed5fe" : "#1974cf");
-}
-\(dark && theme.colorfullWindow ? """
-
-/* Popovers */
-
-popover contents, popover arrow {
-    background: var(--chordprovider-window-end);
-}
-
-""" : "")
 
 /* Text Styles */
 
@@ -216,14 +184,7 @@ popover contents, popover arrow {
 .underline{
     text-decoration: underline;
 }
-.song-title {
-    font-size: \(1.4 * baseFontSize)rem;
-    font-weight: bold;
-}
-.song-subtitle {
-    font-size: \(1.2 * baseFontSize)rem;
-    font-weight: normal;
-}
+
 .caption {
     font-size: \(0.8 * baseFontSize)rem;
 }
@@ -244,7 +205,7 @@ popover contents, popover arrow {
 .section-chorus {
     font-size: \(1 * baseFontSize)rem;
     font-weight: bold;
-    color: \(dark ? "#fff" : "#000");
+    color: var(--window-fg-color);
     background-color: var(--chordprovider-label-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
@@ -261,7 +222,7 @@ popover contents, popover arrow {
 }
 .section-repeat-chorus {
     font-size: \(1 * baseFontSize)rem;
-    color: \(dark ? "#fff" : "#000");
+    color: var(--window-fg-color);
     background-color: var(--chordprovider-label-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
@@ -272,7 +233,7 @@ popover contents, popover arrow {
 .tag-label, .tag-button {
     font-size: \(0.8 * baseFontSize)rem;
     font-weight: normal;
-    color: \(dark ? "#eee" : "#000");
+    color: var(--window-fg-color);
     background-color: var(--headerbar-shade-color);
     padding: 0.5em;
     border-radius: 0.5em;
@@ -401,7 +362,6 @@ popover contents, popover arrow {
     opacity: 0;
 }
 
-
 /* Icons */
 
 .svg-icon {
@@ -444,6 +404,10 @@ popover contents, popover arrow {
 
 .editor.sourceview {
     font-size: \(Double(theme.editorFontSize) / 8.33)pt;
+}
+
+textview.source-editor {
+    background-color: var(--card-bg-color);
 }
 
 gutter {

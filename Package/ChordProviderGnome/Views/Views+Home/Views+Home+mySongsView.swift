@@ -78,7 +78,7 @@ extension Views.Home {
         FlowBox(appState.home.groupings) { group in
             VStack {
                 Text(group.display)
-                    .style(.subtitle)
+                    .title4()
                     .halign(.start)
                 Separator()
                 ForEach(group.songs) { song in
@@ -108,7 +108,7 @@ extension Views.Home {
                 Text("Searching for '<i>\(appState.library.search)</i>'")
                     .useMarkup()
             }
-            .style(.title)
+            .title3()
             .hexpand()
             .halign(.center)
             ForEach(appState.library.searchResult) { song in

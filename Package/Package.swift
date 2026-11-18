@@ -5,13 +5,13 @@ import PackageDescription
 /// The dependencies
 var dependencies: [Package.Dependency] = [
     .package(
-        path: "../SourceView"
+        path: "../SourceEditor"
     ),
-    .package(
-        url: "https://codeberg.org/desbeers/adwaita-swift",
-        branch: "main",
-        traits: ["exposeGeneratedAppearUpdateFunctions"],
-    ),
+    // .package(
+    //     url: "https://codeberg.org/desbeers/adwaita-swift",
+    //     branch: "main",
+    //     traits: ["exposeGeneratedAppearUpdateFunctions"],
+    // ),
     .package(
         url: "https://github.com/apple/swift-argument-parser.git",
         from: "1.2.0"
@@ -22,9 +22,9 @@ var dependencies: [Package.Dependency] = [
     )
 ]
 
-#if os(Linux)
-    dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
-#endif
+// #if os(Linux)
+//     dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
+// #endif
 
 /// The **Chord Provider** package
 let package = Package(
@@ -78,8 +78,8 @@ let package = Package(
         .executableTarget(
             name: "ChordProviderGnome",
             dependencies: [
-                .product(name: "Adwaita", package: "adwaita-swift"),
-                .product(name: "SourceView", package: "SourceView"),
+                // .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "SourceEditor", package: "SourceEditor"),
                 "ChordProviderCore",
                 "ChordProviderMIDI"
             ],
@@ -127,7 +127,7 @@ let package = Package(
             dependencies: [
                 "ChordProviderCore",
                 "ChordProviderGnome",
-                "SourceView",
+                "SourceEditor",
                 "ChordProviderMIDI",
                 "ChordProviderCLI"
             ],
@@ -141,6 +141,6 @@ let package = Package(
             name: "CFluidSynth",
             path: "ChordProviderMIDI/CFluidSynth",
             pkgConfig: "fluidsynth"
-        ),
+        )
     ]
 )

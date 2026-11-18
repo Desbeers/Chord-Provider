@@ -28,12 +28,6 @@ extension Views.Main {
                 ]
             ) { fileURL in
                 appState.openSong(fileURL: fileURL)
-                /// Add it to the recent songs list
-                recentSongs.addRecentSong(
-                    content: appState.scene.originalContent,
-                    coreSettings: appState.settings.core
-                )
-                appState.scene.showToast.signal()
             }
 
         // MARK: File Exporter
@@ -41,28 +35,17 @@ extension Views.Main {
         /// The **File Exporter**
             .fileExporter(
                 open: $appState.scene.saveSongAs,
-                initialName: appState.song.initialName(format: appState.settings.core.export.format)
+                initialName: appState.song.initialName(format: ChordProviderSettings.Export.Format.chordPro)
             ) { fileURL in
-                switch appState.settings.core.export.format {
-                case .chordPro:
-                    appState.settings.core.fileURL = fileURL
-                    appState.saveSong()
-                    /// Add it to the recent songs list
-                    recentSongs.addRecentSong(
-                        content: appState.scene.originalContent,
-                        coreSettings: appState.settings.core
-                    )
-                    /// Set the toast
-                    appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
-                default:
-                    break
-                }
+                appState.controller.command(.save(as: fileURL))
+                /// Set the toast
+                appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     window.close()
                 case .showHomeView:
                     appState.scene.showToast.signal()
-                    appState.scene.showHomeView = true
+                    appState.scene.viewStatus = .showHomeView
                 case .openURL(let url):
                     appState.scene.showToast.signal()
                     appState.openSong(fileURL: url)

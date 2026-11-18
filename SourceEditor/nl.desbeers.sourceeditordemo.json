@@ -1,0 +1,62 @@
+{
+  "id": "nl.desbeers.sourceeditordemo",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "51",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.swift6"
+  ],
+  "command": "Demo",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--socket=wayland"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/swift6/bin",
+    "prepend-ld-library-path": "/usr/lib/sdk/swift6/lib"
+  },
+  "modules": [
+    {
+      "name": "libspelling",
+      "buildsystem": "meson",
+      "config-opts": [
+          "-Dintrospection=disabled",
+          "-Ddocs=false"
+      ],
+      "sources": [
+          {
+            "type": "archive",
+            "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+            "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
+            "x-checker-data": {
+                "type": "gnome",
+                "name": "libspelling"
+            }
+          }
+      ]
+    },
+    {
+      "name": "Demo",
+      "builddir": true,
+      "buildsystem": "simple",
+      "sources": [
+        {
+          "type": "dir",
+          "path": "."
+        }
+      ],
+      "build-commands": [
+        "swift build  --disable-automatic-resolution --configuration release --package-path Package --cache-path .cache --build-path .flatpak/swift --static-swift-stdlib --product Demo",
+        "install -Dm755 .flatpak/swift/release/Demo /app/bin/Demo",
+        "cp -r .flatpak/swift/release/SourceEditor_SourceEditor.bundle/ /app/bin",
+        "cp -r .flatpak/swift/release/SourceEditor_Demo.bundle/ /app/bin",
+        "install -Dm644 Package/Demo/Resources/nl.desbeers.sourceeditordemo.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.sourceeditordemo.svg",
+        "install -Dm644 Package/Demo/Resources/nl.desbeers.sourceeditordemo-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.sourceeditordemo-symbolic.svg",
+        "install -Dm644 Resources/nl.desbeers.sourceeditordemo.metainfo.xml /app/share/metainfo/nl.desbeers.sourceeditordemo.metainfo.xml",
+        "install -Dm644 Resources/nl.desbeers.sourceeditordemo.desktop /app/share/applications/nl.desbeers.sourceeditordemo.desktop"
+      ]
+    }
+  ]
+}

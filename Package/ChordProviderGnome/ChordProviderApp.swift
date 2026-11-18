@@ -8,7 +8,7 @@
 import Adwaita
 import CAdw
 import ChordProviderCore
-import SourceView
+import SourceEditor
 import ChordProviderMIDI
 import Foundation
 
@@ -54,14 +54,73 @@ struct ChordProviderApp: App {
                 appState: $appState,
                 recentSongs: $recentSongs
             )
+            .css {
+                appState.editor.css(colorfull: appState.settings.editor.colorfullWindow)
+            }
             .inspectOnAppear { storage in
                 // Init the chords database
                 appState.initDatabase()
 
-                // // Init the `GtkSourceView`controller
-                // appState.controller = SourceViewController(
-                //     bridge: $appState.editor, language: .chordpro
-                // )
+                // Setup the `GtkSourceView`controller
+                appState.controller.setup(
+                    bridge: $appState.editor,
+                    scheme: $appState.settings.editor.scheme,
+                    storage: storage,
+                    onNew: {
+                        print("NEW CALLBACK")
+                        appState.scene.toastMessage = "Test"
+                        appState.openMainView()
+                    },
+                    onOpen: { result in
+                        switch result {
+                        case .success(let fileURL):
+                            if appState.settings.core.templateURL == nil {
+                                appState.settings.core.fileURL = fileURL
+                                recentSongs.addRecentSong(
+                                    content: appState.controller.text,
+                                    coreSettings: appState.settings.core
+                                )
+                                appState.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
+                                appState.scene.showToast.signal()
+                            }
+                            appState.openMainView()
+                        case .failure(let error):
+                            appState.settings.core.fileURL = nil
+                            appState.scene.throwError(
+                                error: ChordProviderError.fileNotOpened(
+                                    error: error.localizedDescription
+                                ),
+                                main: true
+                            )
+                        }
+                    },
+                    onSave: { result in
+                        switch result {
+                        case .success(let fileURL):
+                            appState.settings.core.templateURL = nil
+                            appState.settings.core.fileURL = fileURL
+                            recentSongs.addRecentSong(
+                                content: appState.song.content,
+                                coreSettings: appState.settings.core
+                            )
+                            appState.getFolderContent()
+                        case .failure(let error):
+                            if case SourceEditorError.noURL = error {
+                                appState.scene.saveSongAs.signal()
+                            } else {
+                                appState.scene.throwError(
+                                    error: ChordProviderError.fileNotSaved(
+                                        error: error.localizedDescription
+                                    ),
+                                    main: true
+                                )
+                            }
+                        }
+                    },
+                    onSchemeChanged: {
+                        appState.setStyle()
+                    }
+                )
                 // Attach the CSS provider to the default display
                 if let display = gdk_display_get_default() {
                     gtk_style_context_add_provider_for_display(
@@ -78,20 +137,13 @@ struct ChordProviderApp: App {
                     await ChordProviderMIDI.shared.setProgram(preset: preset)
                 }
                 // Init the css style
-                appState.setStyle()
-                // Add a *notification* for style changes
-                storage.notify(name: "dark", pointer: appState.styleManager) {
-                    appState.setStyle()
-                }
-                storage.notify(name: "accent-color", pointer: appState.styleManager) {
-                    appState.setStyle()
-                }
+                //appState.setStyle()
                 // Get the songs from the library
                 appState.getFolderContent()
             }
         }
         // - Note: It will remember the window size when opening a new window
-        .size(width: $windowSize.width, height: $windowSize.height)
+        // .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 1024, height: 800)
         .minSize(width: 1024, height: 800)
         .maximized($windowSize.maximized)
@@ -104,27 +156,22 @@ struct ChordProviderApp: App {
                 // Just open the *home* window
                 return
             }
-            appState.scene.showHomeView = false
+            appState.scene.viewStatus = .openingSong
             app.showWindow("main")
             if appState.contentIsModified {
                 // The current song is modified; show a dialog
                 appState.scene.saveDoneAction = .openURL(url)
-                appState.scene.showCloseDialog = true
+                appState.scene.showModifiedSongDialog = true
                 return
             }
             // Open the song
             appState.settings.showEditor = false
             appState.openSong(fileURL: url)
-            // Add it to the recent songs list
-            recentSongs.addRecentSong(
-                content: appState.scene.originalContent,
-                coreSettings: appState.settings.core
-            )
         }
         .onClose {
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow
-                appState.scene.showCloseDialog = true
+                appState.scene.showModifiedSongDialog = true
                 return .cancel
             }
             return .close

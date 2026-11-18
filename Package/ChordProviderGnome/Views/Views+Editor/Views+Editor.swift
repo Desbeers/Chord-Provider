@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import SourceView
+import SourceEditor
 
 extension Views {
 
@@ -25,39 +25,47 @@ extension Views {
                 Inserts(appState: $appState)
                     .padding(5)
                     .halign(.center)
-                SourceView.SearchOptions(bridge: $appState.editor)
+                EditorSearch(bridge: $appState.editor)
                 Separator()
-                ScrollView {
-                    SourceView(
-                        bridge: $appState.editor,
-                        controller: appState.controller
-                    )
-                    .onTextChanged { content in
-                        appState.updateSong(content: content)
-                    }
-                    .onLineChanged {
-                        appState.setCurrentLine()
-                    }
-                    .onTripleClick {
-                        let directive = appState.currentLine.directive
-
-                        if let directive, directive.editable {
-                            appState.scene.handleDirective =
-                                appState.currentLine.directive
-                            appState.scene.showEditDirectiveDialog = true
+                HStack {
+                    ScrollView {
+                        EditorView(
+                            controller: appState.controller
+                        )
+                        .onTextChanged { content in
+                            return appState.updateSong(content: content)
                         }
+                        .onLineChanged {
+                            appState.setCurrentLine()
+                        }
+                        .onTripleClick {
+                            let directive = appState.currentLine.directive
+                            if let directive, directive.editable {
+                                appState.scene.handleDirective =
+                                appState.currentLine.directive
+                                appState.scene.showEditDirectiveDialog = true
+                            }
+                        }
+                        // .onSchemeChanged {
+                        //     print("UPDATE CSS FOR CHORDPROVIDER")
+                        //     appState.setStyle()
+                        // }
+                        .innerPadding(10, edges: .all)
+                        .lineNumbers(appState.settings.editor.showLineNumbers)
+                        .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
+                        .highlightCurrentLine(true)
+                        .language(.chordpro)
+                        .spelling($appState.settings.editor.spelling)
+                        .scheme($appState.settings.editor.scheme)
+                        .vexpand()
+                        .style(.editor)
+                        .focus($appState.scene.focusEditor)
                     }
-                    .innerPadding(10, edges: .all)
-                    .lineNumbers(appState.settings.editor.showLineNumbers)
-                    .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
-                    .highlightCurrentLine(true)
-                    .language(.chordpro)
-                    .snippets(appState.resourcesDirectory)
-                    .spelling($appState.settings.editor.spelling)
-                    .scheme($appState.settings.editor.scheme)
-                    .vexpand()
-                    .style(.editor)
-                    .focus($appState.scene.focusEditor)
+                    .hexpand()
+                    if appState.settings.editor.showMiniMap {
+                        Separator()
+                        EditorMap(controller: appState.controller)
+                    }
                 }
                 Separator()
                     .bottomToolbar(visible: appState.settings.core.showWarnings) {
@@ -137,6 +145,10 @@ extension Views {
                         appState.song.allLines.map(\.sourceParsed).joined(separator: "\n")
                     )
                 }
+                Toggle(icon: .default(icon: .sidebarShowRight), isOn: $appState.settings.editor.showMiniMap)
+                    .tooltip("Show Mini Map")
+                    .valign(.center)
+                    .padding(.trailing)
             }
             .style(.caption)
         }

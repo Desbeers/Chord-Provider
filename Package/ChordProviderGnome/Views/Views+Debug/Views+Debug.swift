@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import SourceView
+import SourceEditor
 
 extension Views {
 
@@ -30,7 +30,7 @@ extension Views {
                 )
                     .padding()
                 Text(appState.scene.selectedDebugTab.help)
-                    .style(.title)
+                    .title3()
                     .padding(5, .bottom)
                 Separator()
                 switch appState.scene.selectedDebugTab {
@@ -59,8 +59,8 @@ extension Views {
         ///   - text: The text to show
         ///   - language: The language of the text
         /// - Returns: An `AnyView`
-        func sourceView(_ text: String?, language: Language) -> AnyView {
-            SimpleSourceView(text: text ?? "", language: language)
+        func sourceView(_ text: String?, language: SourceEditor.Editor.Language) -> AnyView {
+            SimpleEditorView(text: text ?? "", language: language)
         }
 
         /// The tabs of the *Debug* View

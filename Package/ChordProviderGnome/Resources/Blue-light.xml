@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Blue-light" _name="Blue Delight" parent-scheme="cobalt-light" version="1.0">
+  <author>Nick Berendsen</author>
+  <description>Blue Delight</description>
+  <metadata>
+    <property name="variant">light</property>
+    <property name="dark-variant">Blue-dark</property>
+  </metadata>
+</style-scheme>

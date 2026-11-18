@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Source Editor Demo
+Comment=A demo of the Swift package
+Categories=GNOME;Utility;TextEditor;
+Icon=nl.desbeers.sourceeditordemo
+Exec=Demo %U
+Terminal=false
+Keywords=demo;
+MimeType=text/plain;

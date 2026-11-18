@@ -19,6 +19,7 @@ build/
 ## Swift
 Package.resolved
 Package/Generated*
+SourceEditor/Generated*
 
 ## VSCode
 .vscode

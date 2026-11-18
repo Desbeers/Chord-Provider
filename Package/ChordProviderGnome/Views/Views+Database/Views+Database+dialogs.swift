@@ -85,7 +85,7 @@ extension Views.Database {
                 VStack {
                     Text("Are you sure you want to delete <b>\(databaseState.definition?.display ?? "")</b>?")
                         .useMarkup()
-                        .style(.subtitle)
+                        .heading()
                         .padding(.bottom)
                     Text("This can not be undone.")
                 }

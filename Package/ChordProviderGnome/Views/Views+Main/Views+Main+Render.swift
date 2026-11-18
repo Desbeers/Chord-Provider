@@ -8,6 +8,7 @@
 import Foundation
 import ChordProviderCore
 import Adwaita
+import SourceEditor
 
 extension Views.Main {
 
@@ -42,11 +43,24 @@ extension Views.Main {
                         .vexpand()
                     }
                 } else {
-                    StatusPage(
-                        "Loading",
-                        icon: .default(icon: .folderMusic),
-                        description: "Loading your song..."
-                    )
+                    Box {
+                        switch appState.scene.viewStatus {
+                        case .openingSong:
+                            StatusPage(
+                                "Loading",
+                                icon: .default(icon: .folderMusic),
+                                description: "Loading your song..."
+                            )
+                            .vexpand()
+                        default:
+                            StatusPage(
+                                "No content",
+                                icon: .default(icon: .folderMusic),
+                                description: "The song has no content."
+                            )
+                            .vexpand()
+                        }
+                    }
                     .frame(minWidth: 350)
                     .transition(.crossfade)
                 }

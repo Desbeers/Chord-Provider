@@ -10,6 +10,8 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderMIDI
 
+import SourceEditor
+
 extension Views {
 
     /// Toolbar Views
@@ -110,18 +112,12 @@ extension Views.Toolbar {
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
-                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
-                            appState.saveSong()
-                            /// Add it to the recent songs list
-                            recentSongs.addRecentSong(
-                                content: appState.scene.originalContent,
-                                coreSettings: appState.settings.core
-                            )
+                            appState.controller.command(.save())
                         }
                         .keyboardShortcut("s".ctrl())
+                        .enabled(appState.contentIsModified, "Save")
                         MenuButton("Save As…") {
-                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.scene.saveSongAs.signal()
                         }
@@ -168,8 +164,8 @@ extension Views.Toolbar {
             }
             .headerBarTitle {
                 WindowTitle(
-                    subtitle: appState.song.hasContent ? appState.subtitle : "Loading your song",
-                    title: appState.song.hasContent ? appState.title : "Chord Provider"
+                    subtitle: appState.subtitle,
+                    title: appState.title
                 )
             }
         }
@@ -180,9 +176,9 @@ extension Views.Toolbar {
             resetMIDI()
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .showHomeView
-                appState.scene.showCloseDialog = true
+                appState.scene.showModifiedSongDialog = true
             } else {
-                appState.scene.showHomeView = true
+                appState.scene.viewStatus = .showHomeView
             }
         }
 

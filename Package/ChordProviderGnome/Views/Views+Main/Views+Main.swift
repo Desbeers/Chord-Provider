@@ -28,7 +28,7 @@ extension Views {
         /// The main `View`
         var view: Body {
             VStack {
-                if appState.scene.showHomeView {
+                if appState.scene.viewStatus == .showHomeView{
                     Views.Home(
                         app: app,
                         window: window,

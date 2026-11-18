@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Green-dark" name="Green Delight" version="1.0" parent-scheme="Adwaita-dark">
+    <author>Nick Berendsen</author>
+    <_description>Default theme for SourceEditor</_description>
+    <metadata>
+      <property name="variant">dark</property>
+      <property name="light-variant">Green-light</property>
+    </metadata>
+
+    <style name="chordpro:chord-render" bold="true" foreground="#849D88" scale="large"/>
+    <style name="accent" background="#697D6C" />
+
+    <!-- <style name="chordpro:chord" foreground="#1a5fb4" scale="x-large"/>
+    <style name="chordpro:tag"   foreground="#613583" scale="0.8"/>
+    <style name="chordpro:title" bold="true" scale="x-large"/> -->
+</style-scheme>

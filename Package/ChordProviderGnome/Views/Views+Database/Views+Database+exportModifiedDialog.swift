@@ -24,9 +24,9 @@ extension Views.Database {
                 /// - Note: Use `extraChild` instead of `body` so I can use markup
                 let instrument = appState.currentInstrument
                 VStack {
-                    Text("The <b>\(instrument.kind.description), \(instrument.label)</b> database is modified.")
+                    Text("The <b>\(instrument.kind.description), \(instrument.label)</b> database is modified")
                         .useMarkup()
-                        .style(.subtitle)
+                        .heading()
                         .padding(.bottom)
                     if instrument.fileURL == nil {
                         Text("You can not just save the database because it is <i>Build-in</i>\nIf you export it, it will be added as a custom instrument")

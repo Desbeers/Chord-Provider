@@ -11,19 +11,29 @@ import Adwaita
 
 extension AppState {
 
+    enum ViewStatus {
+        case showHomeView
+        case openingSong
+        case showMainView
+    }
+
     /// Settings for the current scene
     /// - Note: These settings are not saved
     struct Scene {
 
         /// Show the *Home* view
-        var showHomeView: Bool = true
+        // var showHomeView: Bool = true {
+        //     didSet {
+        //         dump(showHomeView)
+        //     }
+        // }
+
+        /// The View status
+        var viewStatus: ViewStatus = .showHomeView
         /// The selected debug tab
         var selectedDebugTab: Views.Debug.Tab = .log
         /// The selected debug json section
         var selectedDebugJSONSection: Views.Debug.JSONPage = .metadata
-        /// The original content of the song when opened or created
-        /// - Note: To check if the song is changed
-        var originalContent = ""
         /// What to do when a song is saved
         var saveDoneAction: SaveDoneAction = .noAction
         /// Bool if the application is fullscreen
@@ -52,9 +62,9 @@ extension AppState {
         var showDebugDialog = false
         /// Show the *Preferences* dialog
         var showPreferencesDialog: Bool = false
-        /// Show the *Close* dialog
+        /// Show the *Modified Song* dialog
         /// - Note: It will be shown when the content of the song is modified
-        var showCloseDialog: Bool = false
+        var showModifiedSongDialog: Bool = false
         /// Show the *Shortcuts* dialog
         /// - Note: Shortcuts don't work on macOS
         var showShortcutsDialog: Bool = false

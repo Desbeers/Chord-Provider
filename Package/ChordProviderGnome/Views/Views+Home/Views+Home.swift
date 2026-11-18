@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import SourceEditor
 
 extension Views {
 
@@ -30,11 +31,24 @@ extension Views {
             HStack(spacing: 20) {
                 VStack {
                     Text("Create a new song")
-                        .style(.title)
-                    Image(bundle: "nl.desbeers.chordprovider")
-                        .pixelSize(220)
-                        .halign(.center)
-                        .padding(10)
+                        .title3()
+                    VStack {
+                        Fixed()
+                            .element(x: 22, y: 20, id: "TEST2") {
+                                Box() {}
+                                    .frame(minWidth: 200, minHeight: 200)
+                                    .style("symbolic-app-icon-background")
+                            }
+                            .element(x: 0, y: 0, id: "TEST") {
+                                Image(bundle: "nl.desbeers.chordprovider-symbolic")
+                                    .pixelSize(220)
+                                    .style("symbolic-app-icon")
+                                    .iconDropshadow()
+                                    .halign(.center)
+                                    .padding(10)
+                                    }
+                    }
+
                     VStack {
                         Button("Start with a new song") {
                             appState.openSample(.newSong, showEditor: true)
@@ -44,10 +58,12 @@ extension Views {
                             appState.openSample(.swingLowSweetChariot, showEditor: true)
                         }
                         .padding()
-                        if appState.settings.app.debug {
-                            debugSongsMenu()
-                                .padding()
-                        }
+#if DEBUG
+                        debugSongsMenu()
+                            .padding()
+                        debugPrintMenu()
+                            .padding()
+#endif
                         Separator()
                             .spacer()
                             .vexpand()
@@ -149,6 +165,8 @@ extension Views {
             }
         }
 
+#if DEBUG
+
         /// Debug songs menu
         private func debugSongsMenu() -> Menu {
             var result: [MenuButton] = []
@@ -157,5 +175,15 @@ extension Views {
             }
             return Menu("Debug Songs") { result }
         }
+
+        /// Debug print menu
+        private func debugPrintMenu() -> Menu {
+            var result: [MenuButton] = []
+            result.append(MenuButton("Language Search Paths") { SourceEditor.Editor.Controller.printLanguageSearchPaths() })
+            return Menu("Debug Print") { result }
+        }
+
+#endif
+
     }
 }

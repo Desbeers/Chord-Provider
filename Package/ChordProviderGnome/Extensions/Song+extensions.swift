@@ -8,6 +8,7 @@
 import ChordProviderCore
 import Adwaita
 import CAdw
+import SourceEditor
 
 extension Song {
 
@@ -42,17 +43,18 @@ extension Song.Section.Line.Tab {
     /// Highlight a tab line
     /// - Parameters:
     ///   - storage: The view storage
-    ///   - color: The accent color
+    ///   - accentColor: The accent color
     ///   - playingTabNotes: Bool if the tab is playing with MIDI
     ///   - currentColumnID: The current column ID
     ///   - zoom: The zoom factor
     func highlight(
         storage: ViewStorage,
-        color: (red: UInt16, green: UInt16, blue: UInt16),
+        accentColor: Editor.Color,
         playingTabNotes: Bool,
         currentColumnID: Int,
         zoom: Double
     ) {
+        let color = accentColor.pango
         let list = pango_attr_list_new()
         defer {
             pango_attr_list_unref(list)

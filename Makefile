@@ -209,24 +209,3 @@ clean:
 		.flatpak \
 		.host \
 		Package/.build
-
-#####################################################
-#                                                   #
-# Source View Demo                                  #
-#                                                   #
-#####################################################
-
-buildDemo:
-	@echo "Build Source View Demo"
-	@swift build \
-		--package-path SourceView \
-		--build-path .host \
-		--cache-path .cache \
-		--configuration release \
-		--product SourceViewDemo
-	@echo "Demo building done"
-
-runDemo: buildDemo
-	@echo "Run Source View Demo"
-	@.host/release/SourceViewDemo
-	@echo "Source View Demo stopped"

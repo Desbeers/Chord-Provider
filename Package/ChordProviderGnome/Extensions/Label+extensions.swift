@@ -8,6 +8,7 @@
 import ChordProviderCore
 import Adwaita
 import CAdw
+import SourceEditor
 
 extension Label {
 
@@ -38,9 +39,10 @@ extension Label {
     /// Highlight the background of a `GtlLabel`
     /// - Parameters:
     ///   - highlight: Bool to highlight or not
-    ///   - color: The accent color
+    ///   - accentColor: The accent color
     /// - Returns: Updated `AnyView`
-    public func highlight(_ highlight: Bool, color: (red: UInt16, green: UInt16, blue: UInt16)) -> Self {
+    public func highlight(_ highlight: Bool, accentColor: Editor.Color) -> Self {
+        let color = accentColor.pango
         var newSelf = self
         newSelf.updateFunctions.append { storage, _, updateProperties in
             if updateProperties {
