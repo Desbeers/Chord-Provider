@@ -99,8 +99,8 @@ extension Editor.Controller {
     static func printUnknownLanguages() {
         let manager = Editor.Controller.languageManager
         for language in Editor.Language.allCases where language != .unknown {
-            if gtk_source_language_manager_get_language(manager, language.languageName) == nil {
-                print("Language not found: \(language.languageName)")
+            if gtk_source_language_manager_get_language(manager, language.id) == nil {
+                print("Language not found: \(language.id)")
             }
         }
     }

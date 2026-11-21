@@ -50,7 +50,7 @@ extension Editor.Color {
     /// White
     static let black = Color(red: 0, green: 0, blue: 0, alpha: 1)
     /// Black
-    static let white = Color(red: 0, green: 0, blue: 0, alpha: 0)
+    static let white = Color(red: 1, green: 1, blue: 1, alpha: 1)
 
     /// The system accent color.
     public static var systemAccent: Color {

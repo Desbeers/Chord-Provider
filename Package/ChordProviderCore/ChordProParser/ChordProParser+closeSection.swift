@@ -57,7 +57,7 @@ extension ChordProParser {
                 context: currentSection.environment
             )
             if warning {
-                currentSection.lines[lastLineIndex].addWarning(
+                currentSection.lines[lastLineIndex - 1].addWarning(
                     "The section is not properly closed with <b>{\(closingDirective.source.long)}</b>",
                     level: .error
                 )

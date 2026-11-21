@@ -38,12 +38,12 @@ gui:
 		--package-path Package \
 		--build-path .host \
 		--cache-path .cache \
-		--configuration release \
+		--configuration debug \
 		--product ChordProviderGnome
 	@echo "GUI build done"
 run: gui
 	@echo "Run GUI"
-	@.host/release/ChordProviderGnome
+	@.host/debug/ChordProviderGnome
 	@echo "GUI stopped"
 
 #####################################################

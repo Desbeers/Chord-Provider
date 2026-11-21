@@ -32,7 +32,7 @@ extension ChordProParser {
                 arguments: currentSection.lines.last?.arguments ?? DirectiveArguments(),
                 currentSection: &currentSection,
                 song: &song,
-                warning: currentSection.autoCreated
+                warning: !currentSection.autoCreated
             )
         }
         // Update the current section

@@ -65,7 +65,9 @@ extension Editor.Bridge {
             ("window-fg-color", foreground),
             ("card-fg-color", foreground),
             ("active-toggle-fg-color", foreground),
-            ("headerbar-fg-color", foreground)
+            ("headerbar-fg-color", foreground),
+            ("popover-bg-color", background),
+            ("popover-fg-color", foreground)
         ])
         }
 
@@ -133,9 +135,8 @@ extension Editor.Bridge {
         /// The accent color. Only apply when set in the scheme.
         if let accent = styleInfo[.accent]?.background ?? styleInfo[.selection]?.background.withAlpha(1) {
             let accentBackground = accent
-            let accentForeground = Color.white
             variables.append(("accent-bg-color", accentBackground))
-            variables.append(("accent-fg-color", accentForeground))
+            variables.append(("accent-fg-color", colorfull ? foreground : Color.white))
         }
 
         /// Compose the body.
