@@ -13,39 +13,29 @@ import CGtkSourceView
 
 extension Editor.Controller {
 
-    // MARK: Style.
-
     /// Init the editor style.
-    func initStyle(resources: URL? = nil) {
-        // This should always work
+    func initStyle(resources: URL?) {
         let manager = gtk_source_style_scheme_manager_get_default()
         gtk_source_style_scheme_manager_append_search_path(manager, Self.resourcesURL.path)
         if let resources {
-           gtk_source_style_scheme_manager_append_search_path(manager, resources.path)
-        }
-        // Set the style
-        updateStyle()
-        // Add a *notification* for style changes
-        buffer.notify(name: "dark", pointer: adw_style_manager_get_default()) { [self] in
-            scheme.wrappedValue = modeSchemeID()
-            // self.updateStyle()
+            gtk_source_style_scheme_manager_append_search_path(manager, resources.path)
         }
     }
 
     /// Update the editor style.
     func updateStyle() {
         let gtkStyleManager = gtk_source_style_scheme_manager_get_default()
-        let style = gtk_source_style_scheme_manager_get_scheme(gtkStyleManager, scheme.wrappedValue)
+        let style = gtk_source_style_scheme_manager_get_scheme(gtkStyleManager, scheme.wrappedValue.id)
         gtk_source_buffer_set_style_scheme(buffer.sourceBufferPointer, style)
         setMarksStyle()
-        bridge.styleInfo.wrappedValue = allStyleInfo()
+        bridge.styleInfo.wrappedValue = allStyleInfo(scheme: nil)
         onSchemeChanged?()
     }
 
     /// The scheme IDs that fit the current appearance.
     /// - Parameter customOnly: Only return schemes loaded from the custom directory.
     /// - Returns: The scheme IDs.
-    func schemeIDs(customOnly: Bool = false) -> [String] {
+    func schemeIDs(customOnly: Bool) -> [String] {
         let dark = Self.darkMode
         // The directory with the custom schemes
         let customPath = resources?.path
@@ -80,19 +70,19 @@ extension Editor.Controller {
             .map { String(cString: $0) }
     }
 
-    /// The scheme ID that fits the current mode.
+    /// The scheme ID that fits the current appearance mode.
     /// - Returns: The partner ID for the mode, or `id` itself if it has none.
-    func modeSchemeID() -> String {
-        let id = scheme.wrappedValue
+    var modeSchemeID: Editor.Scheme {
+        let id = scheme.wrappedValue.id
         let manager = gtk_source_style_scheme_manager_get_default()
         guard let styleScheme = gtk_source_style_scheme_manager_get_scheme(manager, id) else {
-            return id
+            return .init(id)
         }
         let key = Self.darkMode ? "dark-variant" : "light-variant"
         guard let partner = gtk_source_style_scheme_get_metadata(styleScheme, key).map({ String(cString: $0) }),
               gtk_source_style_scheme_manager_get_scheme(manager, partner) != nil
-        else { return id }
-        return partner
+        else { return .init(id) }
+        return .init(partner)
     }
 
     /// Bool if the current style is dark.
@@ -110,18 +100,18 @@ extension Editor.Controller {
     ///   - fallbackID: The style ID to look up instead; used internally when `styleID` is not defined.
     /// - Returns: The style info, or nil if the style is not found.
     func styleInfo(
-        _ styleID: Editor.StyleID,
-        _ scheme: String? = nil,
-        _ fallbackID: Editor.StyleID? = nil
+        styleID: Editor.StyleID,
+        scheme: Editor.Scheme?,
+        fallbackID: Editor.StyleID?
     ) -> Editor.StyleInfo? {
-        let schemeID = scheme ?? self.scheme.wrappedValue
+        let schemeID = scheme?.id ?? self.scheme.wrappedValue.id
         let manager = gtk_source_style_scheme_manager_get_default()
         let id = fallbackID ?? styleID
         guard let schemePointer = gtk_source_style_scheme_manager_get_scheme(manager, schemeID),
               let style = gtk_source_style_scheme_get_style(schemePointer, id.rawValue)
         else {
             if let fallback = styleColorFallback(id) {
-                return styleInfo(styleID, scheme, fallback)
+                return styleInfo(styleID: styleID, scheme: scheme, fallbackID: fallback)
             }
             return nil
         }
@@ -132,20 +122,20 @@ extension Editor.Controller {
             boolProperty(object, "\(name)-set") ? stringProperty(object, name) : nil
         }
         /// A bool property, only if its `-set` flag is true.
-        func bool(_ name: String) -> Bool? {
-            boolProperty(object, "\(name)-set") ? boolProperty(object, name) : nil
+        func bool(_ name: String) -> Bool {
+            boolProperty(object, "\(name)-set") ? boolProperty(object, name) : false
         }
 
         return Editor.StyleInfo(
             id: styleID,
             fallback: fallbackID,
-            foreground: GdkRGBA(hex: string("foreground")) ?? GdkRGBA(.foreground),
-            background: GdkRGBA(hex: string("background")) ?? GdkRGBA(),
+            foreground: Color(hex: string("foreground"))?.gdkRGBA ?? Color(.foreground).gdkRGBA,
+            background: Color(hex: string("background"))?.gdkRGBA ?? GdkRGBA(),
             lineBackground: string("line-background") ?? "transparent",
             underlineColor: string("underline-color"),
-            bold: bool("bold") ?? false,
-            italic: bool("italic") ?? false,
-            strikethrough: bool("strikethrough") ?? false,
+            bold: bool("bold"),
+            italic: bool("italic"),
+            strikethrough: bool("strikethrough"),
             scale: string("scale")
         )
     }
@@ -165,15 +155,14 @@ extension Editor.Controller {
     }
 
     /// All styles of a scheme that are listed in `StyleID`.
-    /// - Parameter scheme: The scheme ID; optional, defaults to the current scheme.
+    /// - Parameter scheme: The scheme; optional, defaults to the current scheme.
     /// - Returns: The style IDs with their info. Styles that the scheme does not define are skipped.
-    func allStyleInfo(_ scheme: String? = nil) -> [Editor.StyleInfo] {
-        Editor.StyleID.allCases.compactMap { id in
-            styleInfo(id, scheme)
+    func allStyleInfo(scheme: Editor.Scheme?) -> [Editor.StyleInfo] {
+        Editor.StyleID.allCases.compactMap { styleID in
+            styleInfo(styleID: styleID, scheme: scheme, fallbackID: nil)
         }
     }
 }
-
 
 extension Editor.Controller {
 

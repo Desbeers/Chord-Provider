@@ -25,7 +25,7 @@ extension GtkRender.TabSection {
         /// The zoom factor
         let zoom: Double
         /// The current accent color
-        let accentColor: Editor.Color
+        let accentColor: Color
         /// The body of the `View`
         var view: Body {
             VStack {

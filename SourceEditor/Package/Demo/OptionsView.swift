@@ -20,10 +20,14 @@ struct OptionsView: View {
     var view: Body {
         VStack {
             ScrollView {
-                Text(appState.bridge.language ?? "Unknown Language")
+                Text(appState.options.language.display)
                     .heading()
                     .padding(.top)
                 Form {
+                    SwitchRow()
+                        .title("Editable")
+                        .subtitle("Make the text editable")
+                        .active($appState.options.editable)
                     SwitchRow()
                         .title("Line Numbers")
                         .subtitle("Show the line numbers in the editor")
@@ -54,9 +58,10 @@ struct OptionsView: View {
                         Text("%")
                     }
                 }
-                Button(appState.controller.schemeName) {
+                Button(appState.options.scheme.display) {
                     styleDialog.toggle()
                 }
+                .tooltip(appState.options.scheme.description)
                 .padding(.top)
                 .halign(.center)
                 .valign(.center)
@@ -73,7 +78,7 @@ struct OptionsView: View {
                         HeaderBar.empty()
                             .headerBarTitle {
                                 WindowTitle(
-                                    subtitle: appState.controller.schemeName,
+                                    subtitle: appState.options.scheme.display,
                                     title: "Select a Theme"
                                 )
                             }

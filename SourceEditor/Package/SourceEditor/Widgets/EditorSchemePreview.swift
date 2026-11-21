@@ -11,8 +11,8 @@ import CGtkSourceView
 /// A preview of a single style scheme.
 public struct EditorSchemePreview: AdwaitaWidget {
 
-    /// The scheme ID.
-    let id: String
+    /// The scheme.
+    let scheme: Editor.Scheme
     /// Bool if the scheme is selected.
     let selected: Bool
 
@@ -20,8 +20,8 @@ public struct EditorSchemePreview: AdwaitaWidget {
     /// - Parameters:
     ///   - id: The scheme ID.
     ///   - selected: Bool if the scheme is selected.
-    public init(id: String, selected: Bool) {
-        self.id = id
+    public init(scheme: Editor.Scheme, selected: Bool) {
+        self.scheme = scheme
         self.selected = selected
     }
 
@@ -35,14 +35,12 @@ public struct EditorSchemePreview: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage {
         let manager = gtk_source_style_scheme_manager_get_default()
-        let scheme = gtk_source_style_scheme_manager_get_scheme(manager, id)
-        let preview = gtk_source_style_scheme_preview_new(scheme)
-        /// Use the description as the tooltip; keep the default (the name) if there is none.
-        if let description = gtk_source_style_scheme_get_description(scheme) {
-            gtk_widget_set_tooltip_text(preview, description)
-        }
+        let schemePointer = gtk_source_style_scheme_manager_get_scheme(manager, scheme.id)
+        let preview = gtk_source_style_scheme_preview_new(schemePointer)
+        // Use the description as the tooltip.
+        gtk_widget_set_tooltip_text(preview, scheme.description)
         gtk_widget_add_css_class(preview, "scheme-preview")
-        if id.starts(with: "Accent") {   // your scheme ID
+        if scheme.id.starts(with: "Accent") {   // your scheme ID
             gtk_widget_add_css_class(preview, "scheme-accent-preview")
         }
         return ViewStorage(preview?.opaque())

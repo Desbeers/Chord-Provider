@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import CAdw
 import CGtkSourceView
 import CLibSpelling
 
@@ -20,22 +21,121 @@ public struct EditorView: AdwaitaWidget {
 
     /// The editor controller.
     let controller: Editor.Controller
-    /// Padding of the editor.
-    var padding = 0
-    /// The padding edges.
-    var paddingEdges: Set<Edge> = []
+
     /// Bool to show the line numbers.
+    @Property(
+        set: { pointer, lineNumbers in
+            gtk_source_view_set_show_line_numbers(
+                pointer.cast(), lineNumbers.cBool
+            )
+        },
+        pointer: OpaquePointer.self
+    )
     var lineNumbers = false
+
+    /// Bool to enable spelling
+    @BindingProperty(
+        observe: { _, spelling, storage in
+            Editor.Controller.spelling(storage: storage, spelling: spelling)
+        },
+        set: { _, spelling, storage in
+            Editor.Controller.spelling(storage: storage, spelling: spelling)
+        },
+        pointer: OpaquePointer.self
+    )
+    var spelling: Binding<Bool> = .constant(false)
+
     /// The text wrapmode.
+    @Property(
+        set: { pointer, wrapMode in
+            gtk_text_view_set_wrap_mode(
+                pointer.cast(),
+                wrapMode.gtkValue
+            )
+        },
+        pointer: OpaquePointer.self
+    )
     var wrapMode: WrapMode = .none
+
     /// Bool to highlight the current line.
+    @Property(
+        set: { pointer, highlightCurrentLine in
+            gtk_source_view_set_highlight_current_line(
+                pointer.cast(),
+                highlightCurrentLine.cBool
+            )
+        },
+        pointer: OpaquePointer.self
+    )
     var highlightCurrentLine: Bool = true
+
     /// Bool if the text is editable.
+    @Property(
+        set: { pointer, editable in
+            gtk_text_view_set_editable(
+                pointer.cast(),
+                editable.cBool
+            )
+        },
+        pointer: OpaquePointer.self
+    )
     var editable: Bool = true
 
     /// The language.
-    var language: Editor.Language = .unknown
+    @BindingProperty(
+        observe: { _, language, storage in
+            if let buffer = storage.content["buffer"]?.first {
+                buffer.notify(name: "language") {
+                    language.wrappedValue = Editor.Controller.language(buffer: buffer)
+                }
+            }
+        },
+        set: { _, language, storage in
+            if let buffer = storage.content["buffer"]?.first {
+                Editor.Controller.language(
+                    buffer: buffer,
+                    language: language
+                )
+            }
+        },
+        pointer: OpaquePointer.self
+    )
+    var language: Binding<Editor.Language> = .constant(.def)
 
+    /// The padding between the border and the content.
+    @Property(
+        set: { pointer, padding in
+            padding.set(pointer)
+        },
+        pointer: OpaquePointer.self
+    )
+    var padding: InnerPadding?
+
+    /// The inner padding of a text view.
+    struct InnerPadding {
+
+        /// The padding.
+        var padding: Int
+        /// The affected edges.
+        var paddingEdges: Set<Edge>
+
+        /// Set the inner padding on a text view.
+        /// - Parameter pointer: The text view.
+        func set(_ pointer: OpaquePointer) {
+            if paddingEdges.contains(.top) {
+                gtk_text_view_set_top_margin(pointer.cast(), padding.cInt)
+            }
+            if paddingEdges.contains(.bottom) {
+                gtk_text_view_set_bottom_margin(pointer.cast(), padding.cInt)
+            }
+            if paddingEdges.contains(.leading) {
+                gtk_text_view_set_left_margin(pointer.cast(), padding.cInt)
+            }
+            if paddingEdges.contains(.trailing) {
+                gtk_text_view_set_right_margin(pointer.cast(), padding.cInt)
+            }
+        }
+    }
 
     /// Init the editor.
     /// - Parameter controller: The editor controller.
@@ -53,11 +153,11 @@ public struct EditorView: AdwaitaWidget {
     public func container<Data>(
         data: WidgetData,
         type: Data.Type
-    ) -> ViewStorage {
+    ) -> ViewStorage where Data: ViewRenderData {
         for function in appearFunctions {
             function(controller.view, data)
         }
-
+        initProperties(controller.view, data: data, type: type)
         update(controller.view, data: data, updateProperties: true, type: type)
         // Return the GTKSourceView
         return controller.view
@@ -74,65 +174,9 @@ public struct EditorView: AdwaitaWidget {
         data: WidgetData,
         updateProperties: Bool,
         type: Data.Type
-    ) {
+    ) where Data: ViewRenderData {
+        self.updateProperties(storage, data: data, updateProperties: updateProperties, type: type)
         if updateProperties {
-            if (storage.previousState as? Self)?.language != language {
-                Editor.Controller.initLanguage(
-                    buffer: controller.buffer.sourceBufferPointer,
-                    language: language
-                )
-                Idle {
-                    controller.bridge.language.wrappedValue = controller.languageName
-                    controller.bridge.styleInfo.wrappedValue = controller.allStyleInfo()
-                }
-            }
-            // if (storage.previousState as? Self)?.snippets != snippets, let snippets {
-            //     controller.addSnippetsPath(snippets.path())
-            // }
-            if (storage.previousState as? Self)?.padding != padding {
-                if paddingEdges.contains(.top) {
-                    gtk_text_view_set_top_margin(storage.textViewPointer, padding.cInt)
-                }
-                if paddingEdges.contains(.bottom) {
-                    gtk_text_view_set_bottom_margin(storage.textViewPointer, padding.cInt)
-                }
-                if paddingEdges.contains(.leading) {
-                    gtk_text_view_set_left_margin(storage.textViewPointer, padding.cInt)
-                }
-                if paddingEdges.contains(.trailing) {
-                    gtk_text_view_set_right_margin(storage.textViewPointer, padding.cInt)
-                }
-            }
-            if (storage.previousState as? Self)?.editable != editable {
-                gtk_text_view_set_editable(storage.textViewPointer, editable.cBool)
-            }
-            if (storage.previousState as? Self)?.lineNumbers != lineNumbers {
-                gtk_source_view_set_show_line_numbers(storage.sourceEditorPointer, lineNumbers.cBool)
-            }
-            if (storage.previousState as? Self)?.wrapMode != wrapMode {
-                gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.gtkValue)
-            }
-            if (storage.previousState as? Self)?.highlightCurrentLine != highlightCurrentLine {
-                gtk_source_view_set_highlight_current_line(storage.sourceEditorPointer, highlightCurrentLine.cBool)
-            }
-            Idle {
-                if let spelling = controller.spellingAdaptor {
-                    spelling_text_buffer_adapter_set_enabled(
-                        spelling,
-                        controller.spelling.wrappedValue ? 1 : 0
-                    )
-                }
-                if controller.scheme.wrappedValue != controller.activeSchemeID() {
-                    controller.updateStyle()
-                }
-                if controller.currentSearchText != controller.bridge.search.search.wrappedValue {
-                    controller.setSearchText(controller.bridge.search.search.wrappedValue)
-                }
-                gtk_source_search_context_set_highlight(
-                    controller.searchContext.opaquePointer,
-                    controller.bridge.showSearchBar.wrappedValue.cBool
-                )
-            }
             for function in updateFunctions {
                 function(storage, data, updateProperties)
             }
@@ -142,15 +186,14 @@ public struct EditorView: AdwaitaWidget {
 
     // MARK: View modifiers
 
-    /// Set the language for the editor.
+    /// The language for the editor.
     /// - Parameter language: The ``Editor.Language``.
     /// - Returns: Self.
-    public func language(_ language: Editor.Language) -> Self {
+    public func language(_ language: Binding<Editor.Language>) -> Self {
         modify { sourceEditor in
             sourceEditor.language = language
         }
     }
-
 
     /// The closure when the text has changed.
     /// - Parameter closure: The closure to run.
@@ -186,8 +229,7 @@ public struct EditorView: AdwaitaWidget {
     /// - Returns: Self.
     public func innerPadding(_ padding: Int = 10, edges: Set<Edge> = .all) -> Self {
         modify { sourceEditor in
-            sourceEditor.padding = padding
-            sourceEditor.paddingEdges = edges
+            sourceEditor.padding = .init(padding: padding, paddingEdges: edges)
         }
     }
 
@@ -232,14 +274,14 @@ public struct EditorView: AdwaitaWidget {
     /// - Returns: Self.
     public func spelling(_ spelling: Binding<Bool>) -> Self {
         modify { sourceEditor in
-            sourceEditor.controller.spelling = spelling
+            sourceEditor.spelling = spelling
         }
     }
 
     /// The style scheme for the editor.
-    /// - Parameter scheme: Binding to the scheme setting.
+    /// - Parameter scheme: Binding to the scheme.
     /// - Returns: Self.
-    public func scheme(_ scheme: Binding<String>) -> Self {
+    public func scheme(_ scheme: Binding<Editor.Scheme>) -> Self {
         modify { sourceEditor in
             sourceEditor.controller.scheme = scheme
         }

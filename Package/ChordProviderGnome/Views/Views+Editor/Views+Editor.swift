@@ -54,7 +54,7 @@ extension Views {
                         .lineNumbers(appState.settings.editor.showLineNumbers)
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                         .highlightCurrentLine(true)
-                        .language(.chordpro)
+                        .language(.constant(.chordpro))
                         .spelling($appState.settings.editor.spelling)
                         .scheme($appState.settings.editor.scheme)
                         .vexpand()

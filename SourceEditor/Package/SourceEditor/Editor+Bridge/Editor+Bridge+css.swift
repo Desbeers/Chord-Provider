@@ -11,16 +11,6 @@ import CGtkSourceView
 
 extension Editor.Bridge {
 
-    // /// Bool if the scheme background is dark.
-    // public var isDark: Bool {
-    //     guard
-    //         let background = styleInfo[.text]?.background
-    //     else {
-    //         return false
-    //     }
-    //     return background.luminance < 0.5
-    // }
-
     /// Convert the colors into a CSS style.
     public func css(colorfull: Bool) -> String {
         guard
@@ -38,27 +28,26 @@ extension Editor.Bridge {
         let windowEnd = background.mixed(with: styleInfo[.accent] == nil ? styleInfo.accent : foreground, 0.1)
 
         /// Surfaces: the scheme background nudged towards the foreground
-        func raise(_ amount: Double) -> Editor.Color {
+        func raise(_ amount: Double) -> Color {
             background.mixed(with: foreground, amount)
         }
         /// Shades and borders must be partially transparent black
-        func shade(_ light: Double, _ dark: Double) -> Editor.Color {
-            GdkRGBA.black.color.withAlpha(styleInfo.isDark ? dark : light)
+        func shade(_ light: Double, _ dark: Double) -> Color {
+            Color.black.withAlpha(styleInfo.isDark ? dark : light)
         }
 
-        var variables: [(name: String, color: Editor.Color)] = []
-
-
+        var variables: [(name: String, color: Color)] = []
 
         // Move below to Chord Provider
 
-        variables.append(contentsOf:
+        variables.append(
+            contentsOf:
             [
                 ("chord-render",
                     (
                         styleInfo[.chordProChordRender]?.foreground) ??
                         styleInfo[.selection]?.background.withAlpha(1) ??
-                        GdkRGBA.accent.color
+                        Color.systemAccent
                     ),
 
                 ("icon-foreground", styleInfo.isDark ? foreground : raise(0.08)),
@@ -143,9 +132,8 @@ extension Editor.Bridge {
 
         /// The accent color. Only apply when set in the scheme.
         if let accent = styleInfo[.accent]?.background ?? styleInfo[.selection]?.background.withAlpha(1) {
-            //let accentBackground = accent.composited(over: background)
             let accentBackground = accent
-            let accentForeground = GdkRGBA.white.color
+            let accentForeground = Color.white
             variables.append(("accent-bg-color", accentBackground))
             variables.append(("accent-fg-color", accentForeground))
         }
@@ -155,13 +143,6 @@ extension Editor.Bridge {
             .map { "    --\($0.name): \($0.color.hex);" }
             .joined(separator: "\n")
         body = ":root {\n\(body)\n}\n"
-
-
-        // body += """
-        // textview.source-editor {
-        //     background-color: var(--card-bg-color);
-        // }
-        // """
 
         if colorfull {
             body += """
@@ -180,7 +161,7 @@ extension Editor.Bridge {
             color: rgba(248, 244, 226, 1);
         }
         .scheme-accent-preview  label{
-            background-color: \(styleInfo.systemAccent.hex);
+            background-color: \(Color.systemAccent.hex);
             opacity: 0.1;
         }
         .scheme-preview image {

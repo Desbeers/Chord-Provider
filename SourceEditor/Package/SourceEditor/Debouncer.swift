@@ -50,6 +50,7 @@ final class Debouncer {
                 return G_SOURCE_REMOVE
             },
             Unmanaged.passRetained(closureTask).toOpaque(),
+            // swiftlint:disable:next trailing_closure
             { userData in
                 // Called when the source is removed, after running or when cancelled
                 guard let userData else {

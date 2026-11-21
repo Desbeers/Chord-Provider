@@ -102,7 +102,7 @@ extension Editor {
         /// A keyword.
         case defKeyword = "def:keyword"
 
-        /// MARK: Custom styles.
+        // MARK: Custom styles.
 
         /// The accent color.
         case accent

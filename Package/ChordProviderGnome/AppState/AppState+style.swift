@@ -13,10 +13,9 @@ extension AppState {
 
     /// Set the style for the application
     mutating func setStyle() {
-        let isDark = adw_style_manager_get_dark(styleManager) == 1 ? true : false
         let css = Markup.css(
             theme: self.settings.theme,
-            dark: isDark
+            dark: bridge.styleInfo.isDark
         )
         addCssFromString(css)
     }

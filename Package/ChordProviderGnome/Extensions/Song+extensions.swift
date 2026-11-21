@@ -49,7 +49,7 @@ extension Song.Section.Line.Tab {
     ///   - zoom: The zoom factor
     func highlight(
         storage: ViewStorage,
-        accentColor: Editor.Color,
+        accentColor: Color,
         playingTabNotes: Bool,
         currentColumnID: Int,
         zoom: Double

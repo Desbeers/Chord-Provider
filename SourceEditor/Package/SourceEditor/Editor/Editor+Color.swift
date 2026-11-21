@@ -5,15 +5,20 @@
 //  © 2026 Nick Berendsen
 //
 
+import CAdw
 import CSourceEditor
 
-public extension Editor {
+/// Shortcut for color.
+public typealias Color = Editor.Color
+
+extension Editor {
 
     /// An RGBA color.
     ///
     /// A Swift wrapper around `GdkRGBA`, so users of the package don't need the C modules.
     /// All the color math is done by the internal `GdkRGBA` extensions.
-    struct Color: Sendable, Hashable {
+    public struct Color: Sendable, Hashable {
+
         /// The red channel, 0...1.
         public var red: Double
         /// The green channel, 0...1.
@@ -35,86 +40,58 @@ public extension Editor {
             self.blue = blue
             self.alpha = alpha
         }
-
-        /// Init from a hex string like `#RRGGBB` or `#RRGGBBAA`.
-        /// - Parameter hex: The hex string.
-        /// - Returns: The color, or nil if the string is nil or can't be parsed.
-        public init?(hex: String?) {
-            guard let hex, let rgba = GdkRGBA(hex: hex) else { return nil }
-            self.init(rgba)
-        }
-
-        /// The color as a hex string, including alpha: `#RRGGBBAA`.
-        public var hex: String {
-            self.rgba.hex
-        }
-
-        /// Approximate perceived brightness, 0...1.
-        public var luminance: Double {
-            self.rgba.luminance
-        }
-
-        /// Same color with another alpha.
-        /// - Parameter alpha: The new alpha, 0...1.
-        /// - Returns: The new color.
-        public func withAlpha(_ alpha: Double) -> Color {
-            self.rgba.withAlpha(alpha).color
-        }
-
-        /// Linear mix with another color.
-        /// - Parameters:
-        ///   - other: The other color.
-        ///   - amount: 0 is this color, 1 is the other color.
-        /// - Returns: The mixed color.
-        public func mixed(with other: Color, _ amount: Double) -> Color {
-            self.rgba.mixed(with: other.rgba, amount).color
-        }
-
-        /// Darken the color.
-        /// - Parameter amount: 0 is no change, 1 is black.
-        /// - Returns: The darker color.
-        public func darker(by amount: Double) -> Color {
-            self.rgba.darker(by: amount).color
-        }
-        /// Lighten the color.
-        /// - Parameter amount: 0 is no change, 1 is white.
-        /// - Returns: The lighter color.
-        public func lighten(by amount: Double) -> Color {
-            self.rgba.lighten(by: amount).color
-        }
-
-        /// Change the saturation.
-        /// - Parameter value: 0 gives gray, 1 is unchanged, above 1 is more saturated.
-        /// - Returns: The new color.
-        public func saturated(by value: Double) -> Color {
-            self.rgba.saturated(by: value).color
-        }
-
-        /// This color drawn on top of an opaque background.
-        /// - Parameter background: The opaque background color.
-        /// - Returns: The opaque result.
-        public func composited(over background: Color) -> Color {
-            self.rgba.composited(over: background.rgba).color
-        }
     }
 }
 
-// Internal: the only place the two worlds meet.
 extension Editor.Color {
 
-    /// Init from a `GdkRGBA`.
-    /// - Parameter rgba: The `GdkRGBA`.
-    init(_ rgba: GdkRGBA) {
-        self.init(
-            red: Double(rgba.red),
-            green: Double(rgba.green),
-            blue: Double(rgba.blue),
-            alpha: Double(rgba.alpha)
+    // MARK: Static colors.
+
+    /// White
+    static let black = Color(red: 0, green: 0, blue: 0, alpha: 1)
+    /// Black
+    static let white = Color(red: 0, green: 0, blue: 0, alpha: 0)
+
+    /// The system accent color.
+    public static var systemAccent: Color {
+        var rgba = GdkRGBA()
+        adw_accent_color_to_rgba(
+            adw_style_manager_get_accent_color(adw_style_manager_get_default()),
+            &rgba
         )
+        return Color(rgba)
+    }
+}
+
+extension Editor.Color {
+
+    /// Approximate perceived brightness, 0...1.
+    public var luminance: Double {
+        Double(0.2126 * self.red + 0.7152 * self.green + 0.0722 * self.blue)
+    }
+
+    /// Bool if the current style is dark.
+    static var darkMode: Bool {
+        adw_style_manager_get_dark(adw_style_manager_get_default()) != 0
+    }
+}
+
+extension Editor.Color {
+
+    // MARK: Converts.
+
+    /// The color as a hex string, including alpha: `#RRGGBBAA`.
+    var hex: String {
+        func byte(_ value: Float) -> UInt32 { UInt32((max(0, min(1, value)) * 255).rounded()) }
+        let red = byte(Float(self.red))
+        let green = byte(Float(self.green))
+        let blue = byte(Float(self.blue))
+        let alpha = byte(Float(self.alpha))
+        return String(format: "#%02X%02X%02X%02X", red, green, blue, alpha)
     }
 
     /// The color as a `GdkRGBA`.
-    var rgba: GdkRGBA {
+    var gdkRGBA: GdkRGBA {
         GdkRGBA(red: Float(red), green: Float(green), blue: Float(blue), alpha: Float(alpha))
     }
 
@@ -124,13 +101,5 @@ extension Editor.Color {
             UInt16((min(max(value, 0), 1) * 65535).rounded())
         }
         return (channel(Float(self.red)), channel(Float(self.green)), channel(Float(self.blue)))
-    }
-}
-
-extension GdkRGBA {
-
-    /// The `GdkRGBA` as an `Editor.Color`.
-    var color: Editor.Color {
-        Editor.Color(self)
     }
 }

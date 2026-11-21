@@ -41,7 +41,7 @@ extension Label {
     ///   - highlight: Bool to highlight or not
     ///   - accentColor: The accent color
     /// - Returns: Updated `AnyView`
-    public func highlight(_ highlight: Bool, accentColor: Editor.Color) -> Self {
+    public func highlight(_ highlight: Bool, accentColor: Color) -> Self {
         let color = accentColor.pango
         var newSelf = self
         newSelf.updateFunctions.append { storage, _, updateProperties in

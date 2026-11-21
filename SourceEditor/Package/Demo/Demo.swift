@@ -32,8 +32,8 @@ struct Demo: App {
                     storage: storage,
                     onOpen: { result in
                         switch result {
-                            case .success:
-                            print("CALLBACK SUCCESS!")
+                        case .success:
+                            print("Succes")
                         case .failure(let error):
                             print(error.localizedDescription)
                         }

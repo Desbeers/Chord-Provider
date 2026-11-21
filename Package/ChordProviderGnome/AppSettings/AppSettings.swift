@@ -19,7 +19,7 @@ struct AppSettings: Codable, Equatable {
     /// The theme settings
     var theme = Theme()
     /// The editor settings
-    var editor = Editor.Options()
+    var editor = Editor.Options(scheme: .init("Accent-light"))
     /// The position of the splitter
     var splitter: Int = 400
     /// Bool if the editor is shown

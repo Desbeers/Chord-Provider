@@ -1,5 +1,4 @@
 //
-
 //  Editor+Controller+spelling.swift
 //  SourceEditor
 //
@@ -7,37 +6,38 @@
 //
 
 import Adwaita
-import CGtkSourceView
 import CLibSpelling
 
 extension Editor.Controller {
 
-    /// Init spelling.
-    func initSpelling() {
-        guard
-            let checker = spelling_checker_get_default(),
-            let textView = view.textViewPointer,
-            let widget = view.widgetPointer,
-            let adapter = spelling_text_buffer_adapter_new(
-                buffer.sourceBufferPointer,
-                checker
-            )
-        else { return }
-        gtk_text_view_set_extra_menu(textView, spelling_text_buffer_adapter_get_menu_model(adapter))
-        gtk_widget_insert_action_group(widget, "spelling", adapter)
-        spelling_text_buffer_adapter_set_enabled(
-            adapter,
-            spelling.wrappedValue ? 1 : 0
-        )
-        spellingAdaptor = adapter
-        // Get a notification when the language has changed,
-        // because then we have to reset the previous spellcheck.
-        view.notify(name: "language", id: "language", pointer: checker) {
-            spelling_text_buffer_adapter_invalidate_all(adapter)
+    /// Get the state of the spelling checker.
+    /// - Parameters:
+    ///   - storage: The ``ViewStorage``
+    ///   - spelling: Binding to the spelling state.
+    static func spelling(storage: ViewStorage, spelling: Binding<Bool>) {
+        if let adapter = storage.content["spelling"]?.first {
+            // Get a notification when spellcheck has changed.
+            adapter.notify(name: "enabled") {
+                spelling.wrappedValue = spelling_text_buffer_adapter_get_enabled(adapter.opaquePointer) != 0
+            }
+            // Get a notification when the language has changed,
+            // because then we have to reset the previous spellcheck.
+            adapter.notify(name: "language", id: "language", pointer: spelling_checker_get_default()) {
+                spelling_text_buffer_adapter_invalidate_all(adapter.opaquePointer)
+            }
         }
-        // Get a notification when spellcheck has changed.
-        view.notify(name: "enabled", id: "enabled", pointer: adapter) { [self] in
-            spelling.wrappedValue = spelling_text_buffer_adapter_get_enabled(adapter) != 0
+    }
+
+    /// Set the state of the spelling checker.
+    /// - Parameters:
+    ///   - storage: The ``ViewStorage``
+    ///   - spelling: The spelling state.
+    static func spelling(storage: ViewStorage, spelling: Bool) {
+        if let adapter = storage.content["spelling"]?.first {
+            spelling_text_buffer_adapter_set_enabled(
+                adapter.opaquePointer,
+                spelling ? 1 : 0
+            )
         }
     }
 }

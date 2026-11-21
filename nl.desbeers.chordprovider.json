@@ -28,10 +28,15 @@
       ],
       "sources": [
           {
+              "type": "archive",
+              "url": "https://github.com/FluidSynth/fluidsynth/archive/v2.6.2.tar.gz",
+              "sha256": "ca376b42a3c1b186a4c8c248931789a455ac94a89b777394969d678010c2f91f"
+          },
+          {
               "type": "git",
-              "url": "https://github.com/FluidSynth/fluidsynth.git",
-              "tag": "v2.5.4",
-              "commit": "57c19522838331da5aeae95433b0d776734907d8"
+              "url": "https://github.com/kthohr/gcem.git",
+              "commit": "012ae73c6d0a2cb09ffe86475f5c6fba3926e200",
+              "dest": "gcem"
           }
       ]
     },

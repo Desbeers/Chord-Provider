@@ -10,8 +10,8 @@ import Adwaita
 
 extension Editor {
 
-/// The bridge between `GtkSourceView` and `Swift`.
-public struct Bridge {
+    /// The bridge between `GtkSourceView` and `Swift`.
+    public struct Bridge {
 
         /// The current line number of the cursor.
         public var currentLineNumber: Int = 0

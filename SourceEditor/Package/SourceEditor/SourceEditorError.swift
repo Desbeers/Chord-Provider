@@ -9,7 +9,10 @@ import Foundation
 import Adwaita
 import CGtkSourceView
 
+/// Source Editor errors.
 public enum SourceEditorError: Error, LocalizedError {
+    /// The editor has no URL.
     case noURL
-    case failed(String)
+    /// Failure
+    case failed(_: String)
 }

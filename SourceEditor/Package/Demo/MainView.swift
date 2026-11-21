@@ -27,29 +27,31 @@ struct MainView: View {
                 HStack {
                     ScrollView {
                         EditorView(controller: appState.controller)
-                        /// Default language.
-                        .language(.markdown)
-                        .lineNumbers(appState.options.showLineNumbers)
-                        .highlightCurrentLine(appState.options.highlightCurrentLine)
-                        .wrapMode(appState.options.wrapLines ? .word : .none)
-                        .spelling($appState.options.spelling)
-                        .scheme($appState.options.scheme)
-                        .onTextChanged { _ in
-                            appState.lastUpdate = Date.now
-                            return []
-                        }
-                        .innerPadding(10, edges: .all)
-                        .style("editor")
-                        .css {
-                            """
-                            .editor.sourceview {
-                                font-family: \(appState.options.monoSpaceFont ? "Monospace" : "Sans");
-                                font-size: \(Double(appState.options.fontSize) / 100)em;
+                            .editable(appState.options.editable)
+                            /// Default language.
+                            .language($appState.options.language)
+                            .lineNumbers(appState.options.showLineNumbers)
+                            .highlightCurrentLine(appState.options.highlightCurrentLine)
+                            .wrapMode(appState.options.wrapLines ? .word : .none)
+                            .spelling($appState.options.spelling)
+                            .scheme($appState.options.scheme)
+                            .onTextChanged { _ in
+                                appState.lastUpdate = Date.now
+                                return []
                             }
-                            """
-                        }
-                        .hexpand()
+                            .innerPadding(10, edges: [.leading, .trailing])
+                            .style("editor")
+                            .css {
+                                """
+                                .editor.sourceview {
+                                    font-family: \(appState.options.monoSpaceFont ? "Monospace" : "Sans");
+                                    font-size: \(Double(appState.options.fontSize) / 100)em;
+                                }
+                                """
+                            }
+                            .hexpand()
                     }
+                    .hexpand()
                     .vexpand()
                     if appState.options.showMiniMap {
                         Box {
@@ -59,9 +61,12 @@ struct MainView: View {
                         .transition(.overLeft)
                     }
                 }
+                .hexpand()
             }
+            .hexpand()
             OptionsView(appState: $appState)
                 .frame(minWidth: 200)
+                .frame(maxWidth: 200)
                 .style("source-view-options")
                 .css {
                     let colors = appState.bridge.css(colorfull: appState.options.colorfullWindow)
@@ -147,6 +152,7 @@ struct MainView: View {
         //.bottomBarStyle(.raised)
         .onAppear {
             if appState.fileURL == nil {
+                appState.options.language = .markdown
                 appState.controller.command(.newFile(welcomeText))
             }
         }
@@ -163,8 +169,8 @@ struct MainView: View {
                     fileURL,
                     completion: { result in
                         switch result {
-                            case .success:
-                            print("View Callback")
+                        case .success:
+                            print("Succes")
                         case .failure(let error):
                             print(error.localizedDescription)
                         }

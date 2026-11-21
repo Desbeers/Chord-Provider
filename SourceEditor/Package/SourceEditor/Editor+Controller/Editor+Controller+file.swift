@@ -48,7 +48,10 @@ extension Editor.Controller {
     /// Created and consumed on the GTK main thread only.
     @MainActor
     private final class CallContext {
-        let completion:  (Result<Void, Error>) -> Void
+
+        /// The completion handler.
+        let completion: (Result<Void, Error>) -> Void
+        /// The file object.
         let object: gpointer
 
         init(object: gpointer, completion: @escaping  (Result<Void, Error>) -> Void) {
@@ -72,7 +75,7 @@ extension Editor.Controller {
 
     /// Create a new file.
     /// - Parameter text: The initial text.
-    func new(_ text: String = "") {
+    func new(_ text: String) {
         guard let textBuffer = buffer.textBufferPointer else {
             return
         }
@@ -150,7 +153,7 @@ extension Editor.Controller {
     ///   - completion: The completion handler.
     func save(
         to url: URL? = nil,
-        completion:  @escaping (Result<Void, Error>) -> Void = { _ in }
+        completion: @escaping (Result<Void, Error>) -> Void = { _ in }
     ) {
         let notify: @MainActor (Result<Void, Error>) -> Void = { [weak self] result in
             if let self {

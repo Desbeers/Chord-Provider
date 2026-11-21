@@ -35,7 +35,7 @@ struct AppState {
     var bridge = Editor.Bridge()
     /// The `GtkSourcebridge. class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
-    var controller = Editor.Controller(resources: AppState.resourcesDirectory)
+    var controller = Editor.Controller(resources: AppState.resourcesURL)
     /// The `Adwaita` style manager
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
@@ -83,12 +83,9 @@ extension AppState {
         }
     }
 
-    /// The resources directory of the bundle.
-    static var resourcesDirectory: URL? {
-        if let url = Bundle.module.url(forResource: "chordpro", withExtension: "snippets") {
-            return url.deletingLastPathComponent()
-        }
-        return nil
+    /// The resources URL of the bundle.
+    static var resourcesURL: URL? {
+        Bundle.module.resourceURL
     }
 
     /// The title in the GNOME overview

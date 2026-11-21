@@ -25,14 +25,9 @@ extension Array where Element == Editor.StyleInfo {
     /// - Color as set by the scheme.
     /// - A full opaque selection color from the scheme.
     /// - The system accent color.
-    public var accent: Editor.Color {
-        self[.accent]?.background ?? self[.selection]?.background.withAlpha(1) ?? GdkRGBA.accent.color
+    public var accent: Color {
+        self[.accent]?.background ?? self[.selection]?.background.withAlpha(1) ?? Color.systemAccent
     }
-
-    public var systemAccent: Editor.Color {
-        GdkRGBA.accent.color
-    }
-
 
     /// Bool if the scheme background is dark.
     public var isDark: Bool {

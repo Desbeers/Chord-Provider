@@ -11,6 +11,7 @@ extension Editor {
 
     /// The style info for a Style ID
     public struct StyleInfo {
+
         /// The style ID.
         public var id: Editor.StyleID
         /// The style ID that was used instead when the scheme does not define `id`;
@@ -62,7 +63,7 @@ extension Editor {
             self.foreground = foreground.color
             self.background = background.color
             self.lineBackground = lineBackground
-            self.underlineColor = underlineColor ?? foreground.hex
+            self.underlineColor = underlineColor ?? foreground.color.hex
             self.bold = bold
             self.italic = italic
             self.strikethrough = strikethrough
@@ -76,14 +77,22 @@ extension Editor.StyleInfo {
     /// The scale as a factor; 1.0 is normal size.
     private static func scaleFactor(_ value: String?) -> Double {
         switch value {
-        case "xx-small": 0.5787
-        case "x-small": 0.6444
-        case "small": 0.8333
-        case "medium", nil: 1.0
-        case "large": 1.2
-        case "x-large": 1.44
-        case "xx-large": 1.728
-        case let number?: Double(number) ?? 1.0
+        case "xx-small":
+            0.5787
+        case "x-small":
+            0.6444
+        case "small":
+            0.8333
+        case "medium", nil:
+            1.0
+        case "large":
+            1.2
+        case "x-large":
+            1.44
+        case "xx-large":
+            1.728
+        case let number?:
+            Double(number) ?? 1.0
         }
     }
 }

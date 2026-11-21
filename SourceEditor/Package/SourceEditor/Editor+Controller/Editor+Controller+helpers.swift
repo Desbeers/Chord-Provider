@@ -11,17 +11,6 @@ import CGtkSourceView
 
 extension Editor.Controller {
 
-    /// The display name of a scheme, without a trailing "Light" or "Dark".
-    public var schemeName: String {
-        let id = scheme.wrappedValue
-        let manager = gtk_source_style_scheme_manager_get_default()
-        guard let styleScheme = gtk_source_style_scheme_manager_get_scheme(manager, id),
-              let cName = gtk_source_style_scheme_get_name(styleScheme) else { return id }
-        let name = String(cString: cName)
-        let base = name.replacing(/[\s\-_]*(light|dark)$/.ignoresCase(), with: "")
-        return base.isEmpty ? name : base
-    }
-
     // MARK: Position and ranges
 
     /// The current cursor position.
@@ -145,11 +134,7 @@ extension Editor.Controller {
 
     /// The resources URL.
     public static var resourcesURL: URL {
-        if let url = Bundle.module.url(forResource: "README", withExtension: "md") {
-            return url.deletingLastPathComponent()
-        }
-        // This should never happen
-        return URL(filePath: "")
+        Bundle.module.resourceURL ?? URL(filePath: "")
     }
 
     // MARK: GObject properties
@@ -174,7 +159,9 @@ extension Editor.Controller {
         g_value_init(&value, Self.gTypeString)
         defer { g_value_unset(&value) }
         g_object_get_property(object, name, &value)
-        guard let cString = g_value_get_string(&value) else { return nil }
+        guard let cString = g_value_get_string(&value) else {
+            return nil
+        }
         return String(cString: cString)
     }
 }

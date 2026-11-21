@@ -62,8 +62,6 @@ extension Editor {
 
         // MARK: Other
 
-        /// Auto language setting.
-        case setLanguage(_: URL)
         /// Clear the current selection.
         case clearSelection
         /// Schedule to update the content.

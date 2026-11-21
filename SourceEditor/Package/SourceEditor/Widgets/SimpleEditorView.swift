@@ -37,7 +37,7 @@ public struct SimpleEditorView: AdwaitaWidget {
     public func container<Data>(
         data: WidgetData,
         type: Data.Type
-    ) -> ViewStorage {
+    ) -> ViewStorage  where Data: ViewRenderData {
         let buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         gtk_text_buffer_set_text(buffer.textBufferPointer, text, -1)
         let view = ViewStorage(
@@ -46,7 +46,7 @@ public struct SimpleEditorView: AdwaitaWidget {
         )
         // Set the style
         setStyle(buffer: buffer)
-        Editor.Controller.initLanguage(buffer: buffer.sourceBufferPointer, language: language)
+        Editor.Controller.language(buffer: buffer, language: language)
         // Wrap by word
         gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.gtkValue)
         // Disable editing

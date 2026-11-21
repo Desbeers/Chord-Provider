@@ -9,6 +9,7 @@ import CGtkSourceView
 
 extension Editor.Controller {
 
+    /// Hande an editor command.
     public func command( _ command: Editor.Command) {
         handle(command)
     }
@@ -24,12 +25,13 @@ extension Editor.Controller {
 
         case let .newFile(text, fileURL):
             if let fileURL {
-                setLanguage(fileURL: fileURL)
+                quessLanguage(fileURL: fileURL)
             }
             new(text)
             resetSearch()
             refocusEditor()
         case let .open(fileURL, completion):
+            quessLanguage(fileURL: fileURL)
             open(fileURL, completion: completion ?? { _ in })
             resetSearch()
             refocusEditor()
@@ -81,8 +83,6 @@ extension Editor.Controller {
             clearSelection()
         case .updateContent:
             scheduleSnapshot()
-        case let .setLanguage(fileURL):
-            setLanguage(fileURL: fileURL)
         }
     }
 

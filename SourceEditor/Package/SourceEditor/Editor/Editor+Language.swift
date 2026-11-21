@@ -5,10 +5,12 @@
 //  © 2026 Nick Berendsen
 //
 
+import CGtkSourceView
+
 extension Editor {
 
     /// A language available in the code editor.
-    public enum Language: String, CaseIterable {
+    public enum Language: String, CaseIterable, Codable, Sendable {
 
         // swiftlint:disable identifier_name
 
@@ -374,11 +376,36 @@ extension Editor {
 
         // swiftlint:enable identifier_name
 
-        /// The name of the language for the backend.
+        /// Lookup table with the backend name as key.
+        private static let languageNames: [String: Language] = Dictionary(
+            uniqueKeysWithValues: allCases.map { ($0.id, $0) }
+        )
+
+        /// Init the language with the name ID of the backend
+        /// - Parameter languageName: The name ID, for example `c-sharp`
+        public init?(languageName: String) {
+            guard let language = Self.languageNames[languageName] else {
+                return nil
+            }
+            self = language
+        }
+
+        /// The desplay name for the language.
+        @MainActor public var display: String {
+            let manager = Editor.Controller.languageManager
+            guard let language = gtk_source_language_manager_get_language(manager, self.id),
+                  let name = gtk_source_language_get_name(language)
+            else {
+                return "Unknown Language"
+            }
+            return String(cString: name)
+        }
+
+        /// The id of the language for the backend.
         ///
         /// The raw value in camel case becomes the dashed ID of GtkSourceView;.
         /// `cSharp` becomes `c-sharp`.
-        var languageName: String {
+        var id: String {
             rawValue.reduce(into: "") { result, char in
                 if char.isUppercase, !result.isEmpty {
                     result += "-"

@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import CSourceEditor
+import CLibSpelling
 
 extension Editor {
 
@@ -19,16 +20,12 @@ extension Editor {
         let view: ViewStorage
         /// The GTKTextBuffer.
         let buffer: ViewStorage
-        /// The spelling adaptor.
-        var spellingAdaptor: OpaquePointer?
         /// Search settings.
         let searchSettings: ViewStorage
         /// Search context.
         let searchContext: ViewStorage
-        /// State of the spelling checker.
-        var spelling: Binding<Bool> = .constant(false)
         /// Scheme.
-        public var scheme: Binding<String> = .constant("Adwaita")
+        public var scheme: Binding<Editor.Scheme> = .constant(.init("Adwaita"))
         /// Bridge.
         public var bridge: Binding<Editor.Bridge> = .constant(Editor.Bridge())
         /// Resources.
@@ -94,9 +91,10 @@ extension Editor {
                 )
             )
             view = ViewStorage(
-                gtk_source_view_new_with_buffer(buffer.sourceBufferPointer).opaque()
+                gtk_source_view_new_with_buffer(buffer.sourceBufferPointer).opaque(),
+                content: ["buffer": [buffer]]
             )
-            gtk_widget_add_css_class(view.widgetPointer, "source-editor");
+            gtk_widget_add_css_class(view.widgetPointer, "source-editor")
             // Give text some breathing space.
             gtk_text_view_set_pixels_above_lines(view.textViewPointer, 4)
             gtk_text_view_set_pixels_below_lines(view.textViewPointer, 4)
@@ -106,7 +104,21 @@ extension Editor {
             // Style
             initStyle(resources: resources)
             // Spelling
-            initSpelling()
+            let spellingAdapter = spelling_text_buffer_adapter_new(
+                buffer.sourceBufferPointer,
+                spelling_checker_get_default()
+            )
+            gtk_text_view_set_extra_menu(
+                view.textViewPointer,
+                spelling_text_buffer_adapter_get_menu_model(spellingAdapter)
+            )
+            gtk_widget_insert_action_group(
+                view.widgetPointer,
+                "spelling",
+                spellingAdapter
+            )
+            view.content["spelling"] = [ViewStorage(spellingAdapter)]
+
             // Connect signal callbacks
             sourceview_connect_signals(
                 view.sourceEditorPointer,
@@ -127,7 +139,6 @@ extension Editor {
             buffer.connectSignal(name: "modified-changed") { [self] in
                 let modified = gtk_text_buffer_get_modified(buffer.textBufferPointer) != 0
                 bridge.modified.wrappedValue = modified
-                //setSaveEnabled(modified)
             }
 
             searchContext.notify(name: "occurrences-count") {
