@@ -89,14 +89,6 @@ struct MainView: View {
                 }
                 Button("Save") {
                     appState.controller.command(.save())
-                        // appState.controller.save() { result in
-                        //     switch result {
-                        //     case .success:
-                        //         print("All fine")
-                        //     case .failure(let error):
-                        //         dump(error)
-                        //     }
-                        // }
                 }
                 Toggle(icon: .default(icon: .sidebarShowRight), isOn: $appState.options.showMiniMap)
                     .tooltip("Show Mini Map")
@@ -105,14 +97,6 @@ struct MainView: View {
                 Menu(icon: .default(icon: .openMenu)) {
                     MenuButton("Save") {
                         appState.controller.command(.save())
-                            // appState.controller.save() { result in
-                            //     switch result {
-                            //     case .success:
-                            //         print("All fine")
-                            //     case .failure(let error):
-                            //         dump(error)
-                            //     }
-                            // }
                     }
                     .enabled(appState.bridge.modified, "Save")
                     MenuButton("Find/Replace") {
@@ -149,7 +133,6 @@ struct MainView: View {
             .style("caption")
             .padding()
         }
-        //.bottomBarStyle(.raised)
         .onAppear {
             if appState.fileURL == nil {
                 appState.options.language = .markdown
@@ -177,7 +160,6 @@ struct MainView: View {
                     }
                 )
             )
-            //appState.controller.scheme
         }
     }
 }

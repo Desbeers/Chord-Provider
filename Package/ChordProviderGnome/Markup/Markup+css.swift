@@ -381,7 +381,7 @@ return """
     color: var(--success-color);
 }
 .log-notice {
-    color: var(--blue-5);
+    color: var(--blue-2);
 }
 .log-warning {
     color: var(--warning-color);

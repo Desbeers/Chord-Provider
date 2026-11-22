@@ -136,7 +136,7 @@ extension Editor.Bridge {
         if let accent = styleInfo[.accent]?.background ?? styleInfo[.selection]?.background.withAlpha(1) {
             let accentBackground = accent
             variables.append(("accent-bg-color", accentBackground))
-            variables.append(("accent-fg-color", colorfull ? foreground : Color.white))
+            variables.append(("accent-fg-color", colorfull ? styleInfo.isDark ? foreground : background : Color.white))
         }
 
         /// Compose the body.

@@ -37,6 +37,14 @@ struct Demo: App {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
+                    },
+                    onSave: { result in
+                        switch result {
+                        case .success:
+                            print("Succes")
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
                     }
                 )
             }
