@@ -87,6 +87,14 @@ let package = Package(
             name: "CLibSpelling",
             path: "Package/CLibSpelling",
             pkgConfig: "libspelling-1"
+        ),
+
+        // MARK: Testing
+
+        .testTarget(
+            name: "SourceEditorTests",
+            dependencies: ["SourceEditor"],
+            path: "Package/Tests",
         )
     ]
 )

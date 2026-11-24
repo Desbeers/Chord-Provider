@@ -128,28 +128,37 @@ extension Editor.Controller {
         _ url: URL,
         completion: @escaping  (Result<Void, Error>) -> Void = { _ in }
     ) {
+        // A separate GtkSourceFile for this attempt. The current `file` is not
+        // touched until the load has succeeded. We own this reference.
+        let candidate = gtk_source_file_new()
+        let gfile = g_file_new_for_path(url.path)
+        gtk_source_file_set_location(candidate, gfile)
+        let loader = gtk_source_file_loader_new(buffer.sourceBufferPointer, candidate)
+
         let notify: @MainActor (Result<Void, Error>) -> Void = { [weak self] result in
-            if let self {
-                onOpen?(result.flatMap { _ -> Result<URL, Error> in
-                    guard url == fileURL else {
-                        return .failure(SourceEditorError.noURL)
-                    }
-                    return .success(url)
-                })
+            guard let self else {
+                // The controller is gone; nobody will use the candidate.
+                g_object_unref(candidate?.cast())
+                completion(result)
+                return
+            }
+            switch result {
+            case .success:
+                // The candidate becomes the current file; release the old one.
+                g_object_unref(file?.cast())
+                file = candidate
+                bridge.fileURL.wrappedValue = fileURL
+                onOpen?(.success(url))
+            case .failure(let error):
+                // Keep the current file and bridge as they were.
+                g_object_unref(candidate?.cast())
+                onOpen?(.failure(error))
             }
             completion(result)
         }
-        let gfile = g_file_new_for_path(url.path)
-        gtk_source_file_set_location(file, gfile)
-
-        // Publish the new URL; the location is set synchronously above.
-        bridge.fileURL.wrappedValue = fileURL
-
-        let loader = gtk_source_file_loader_new(buffer.sourceBufferPointer, file)
 
         defer {
-            // Release our own references. `file` keeps its own ref to the location,
-            // and `fileData` below keeps its own ref to the loader.
+            // `candidate` keeps its own ref to the location, and `fileData` keeps its own ref to the loader.
             g_object_unref(loader?.cast())
             g_object_unref(gfile?.cast())
         }

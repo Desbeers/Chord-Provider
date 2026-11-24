@@ -8,7 +8,7 @@
 import Foundation
 
 /// Source Editor errors.
-public enum SourceEditorError: Error, LocalizedError {
+public enum SourceEditorError: Error, LocalizedError, Equatable, CustomStringConvertible {
 
     /// The editor has no URL.
     /// - Note: This should not happen; the GUI should block a straight save
@@ -33,5 +33,9 @@ public enum SourceEditorError: Error, LocalizedError {
         case .failed(let message):
             message
         }
+    }
+    // CustomStringConvertible protocol.
+    public var description: String {
+        errorDescription ?? "Unknown error"
     }
 }
