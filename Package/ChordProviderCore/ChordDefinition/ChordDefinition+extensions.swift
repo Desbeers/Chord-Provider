@@ -12,7 +12,7 @@ extension ChordDefinition {
     /// The calculated name of the ``ChordDefinition``
     ///
     /// - Returns: A string with the name in plain text
-    /// 
+    ///
     /// - Note: This can be different from the name as set in the source file
     ///         because this value is contructed from the ``root``, ``quality``
     ///         and ``slash`` enum values..
@@ -61,6 +61,20 @@ extension ChordDefinition {
             }
             return nil
         }
+    }
+
+    /// The pitch classes of the ``ChordDefinition``
+    ///
+    /// - Note: 0 = C, 1 = C#, 2 = D, ... 11 = B. The capo is not included.
+    public var pitchClasses: Set<Int> {
+        Set(midiNotes.map { ($0 - capo) % 12 })
+    }
+
+    /// The pitch class of the lowest note of the ``ChordDefinition``
+    ///
+    /// - Note: The capo is not included, same as ``pitchClasses``
+    public var bassPitchClass: Int? {
+        midiNotes.min().map { ($0 - capo) % 12 }
     }
 
     /// Get all possible note combinations for a ``ChordDefinition``
@@ -120,7 +134,7 @@ extension ChordDefinition {
     }
 
     /// Find the enharmonic equivalent of an accidental chord
-    /// 
+    ///
     /// - Examples:
     /// ```
     /// F# -> Gb

@@ -7,26 +7,24 @@
 
 import Foundation
 import ChordProviderCore
+import ChordProviderMIDI
 import Adwaita
 
 extension AppState {
 
-    enum ViewStatus {
+    /// Status of the main View
+    enum ViewStatus: String {
+        /// Show home
         case showHomeView
+        /// Show song opening
         case openingSong
+        /// Show main
         case showMainView
     }
 
     /// Settings for the current scene
     /// - Note: These settings are not saved
     struct Scene {
-
-        /// Show the *Home* view
-        // var showHomeView: Bool = true {
-        //     didSet {
-        //         dump(showHomeView)
-        //     }
-        // }
 
         /// The View status
         var viewStatus: ViewStatus = .showHomeView
@@ -95,6 +93,8 @@ extension AppState {
         var playMetronome: Bool = false
         /// The ID of the current MIDI
         var midiID = UUID()
+        /// Current chord played on the keyboard
+        var keyboardChord = ChordMatcher.Match()
     }
 }
 

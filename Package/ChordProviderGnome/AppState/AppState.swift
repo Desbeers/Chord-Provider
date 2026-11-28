@@ -44,6 +44,8 @@ struct AppState {
     var song = Song(id: UUID())
     /// The current cursor line
     var currentLine = Song.Section.Line()
+    /// Chord definitions grouped by their pitch class mask
+    var matcher = ChordMatcher(chords: [])
 }
 
 extension AppState {
@@ -77,9 +79,8 @@ extension AppState {
                         result.append("modified")
                     }
                     return result.joined(separator: " · ")
-            } else {
-                return "Empty song"
             }
+            return "Empty song"
         }
     }
 

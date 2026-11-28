@@ -259,6 +259,12 @@ extension Views.Toolbar {
                 }
             }
             MenuSection {
+                MenuButton("MIDI Keyboard Monitor") {
+                    app.showWindow("keyboard")
+                }
+                .keyboardShortcut("m".ctrl())
+            }
+            MenuSection {
                 MenuButton("Toggle Fullscreen") {
                     appState.scene.fullscreen.toggle()
                 }

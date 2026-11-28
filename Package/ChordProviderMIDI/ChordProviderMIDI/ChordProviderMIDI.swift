@@ -50,6 +50,20 @@ public actor ChordProviderMIDI {
     /// - Read externally by the GTK render
     public nonisolated(unsafe) private(set) var snapshot = PlaybackSnapshot()
 
+    // MARK: MIDI keyboard
+
+    /// Note events from a connected MIDI keyboard
+    public var keyboardEvents: AsyncStream<MIDINoteEvent>?
+    /// The MIDI keyboard listener
+    var keyboard: MIDIKeyboard?
+
+    /// Current keyboard snapshot
+    /// - Written only by the actor
+    /// - Read externally by the GTK render
+    public nonisolated(unsafe) internal(set) var keyboardSnapshot = KeyboardSnapshot()
+    /// The handler for keyboard events
+    var keyboardHandler: (@Sendable (KeyboardSnapshot) -> Void)?
+
     // MARK: Init
 
     /// Init the MIDI engine
@@ -93,6 +107,14 @@ public actor ChordProviderMIDI {
             /// This should not happen, the sound font is a part of the bundle
             print("ERROR: Sound font not found!")
         }
+
+        // MIDI keyboard
+#if os(Linux)
+        fluid_settings_setstr(settings, "midi.driver", "alsa_seq")
+#elseif os(macOS)
+        fluid_settings_setstr(settings, "midi.driver", "coremidi")
+#endif
+        fluid_settings_setint(settings, "midi.autoconnect", 1)
     }
 }
 

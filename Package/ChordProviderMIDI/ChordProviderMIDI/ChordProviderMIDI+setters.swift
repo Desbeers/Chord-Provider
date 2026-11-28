@@ -14,7 +14,7 @@ extension ChordProviderMIDI {
     /// Set the program
     /// - Parameter preset: The MIDI preset
     public func setProgram(preset: MidiUtils.Preset) {
-        for channel in (0...10) {
+        for channel in (0...15) {
             fluid_synth_program_select(
                 synth,
                 Int32(channel),

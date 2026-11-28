@@ -23,7 +23,7 @@ extension Editor.Controller {
 
         // MARK: File handlers
 
-        case let .newFile(text, fileURL):
+        case let .new(text, fileURL):
             if let fileURL {
                 quessLanguage(fileURL: fileURL)
             }

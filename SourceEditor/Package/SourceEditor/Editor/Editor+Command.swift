@@ -23,7 +23,7 @@ extension Editor {
 
         /// Open new content.
         /// - Note: If a URL is given, the editor language will be set automatically.
-        case newFile(_: String, url: URL? = nil)
+        case new(_: String, url: URL? = nil)
         /// Open existing URL.
         case open(URL, completion: ((Result<Void, Error>) -> Void)? = nil)
         /// Save the editor content.

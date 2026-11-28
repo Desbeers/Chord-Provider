@@ -71,7 +71,7 @@ extension ChordProviderMIDI {
     struct MetronomeSettings {
 
         /// Fixed MIDI channel used by the metronome
-        let channel: Int32 = 15
+        let channel: Int32 = 14
 
         /// Active time signature
         var timeSignature: TimeSignature = .fourFour
@@ -95,6 +95,15 @@ extension ChordProviderMIDI {
 
         /// Tab playback task
         var tab: Task<Void, Never>?
+
+        /// MIDI keyboard task
+        var keyboard: Task<Void, Never>?
+
+        /// MIDI keys publishing
+        var publish: Task<Void, Never>?
+
+        /// MIDI keys clear
+        var clearNotes: Task<Void, Never>?
     }
 
     // MARK: - Playback Note
@@ -117,7 +126,7 @@ extension ChordProviderMIDI {
         public let stringID: Int
 
         /// Optional MIDI transition note
-        /// - Note: This is the last note of all the connected transitions 
+        /// - Note: This is the last note of all the connected transitions
         public let transtionNote: Int?
 
         /// Playback articulation

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Adwaita
 import ChordProviderCore
 import ChordProviderMIDI
 
@@ -16,12 +17,13 @@ extension AppState {
     mutating func openSample(_ sample: Utils.Samples, showEditor: Bool) {
         guard let sampleSong = Bundle.module.url(
             forResource: "Samples/Songs/\(sample.rawValue)",
-            withExtension: "chordpro")
+            withExtension: "chordpro"
+        )
         else {
             /// This should never happen, it is internal code.
             return
         }
-        openSong(fileURL: sampleSong, showEditor: true, templateURL: sampleSong)
+        openSong(fileURL: sampleSong, showEditor: showEditor, templateURL: sampleSong)
     }
 
     /// Open a song from an URL.
@@ -41,9 +43,6 @@ extension AppState {
         templateURL: URL? = nil
     ) {
         settings.showEditor = showEditor
-        if let templateURL {
-            settings.core.templateURL = templateURL
-        }
         // Search must be closed
         bridge.showSearchBar = false
         // Reset transpose
@@ -51,7 +50,14 @@ extension AppState {
         // Don't show the previous song because the rendering has some delay
         song.hasContent = false
         song.id = UUID()
-        controller.command(.open(fileURL))
+        scene.viewStatus = .openingSong
+        if let templateURL {
+            settings.core.templateURL = templateURL
+            let content = try? String(contentsOf: templateURL, encoding: .utf8)
+            controller.command(.new(content ?? "Error"))
+        } else {
+            controller.command(.open(fileURL))
+        }
     }
 
     /// Open the Main View with the song.
@@ -61,8 +67,6 @@ extension AppState {
     mutating func openMainView() {
         // Set a new random song for the Home `View`
         setRandomSong()
-        // Close the Home `View`
-        scene.viewStatus = .openingSong
         // Start the MIDI player transport
         Task { @concurrent in
             await ChordProviderMIDI.shared.startTransport()

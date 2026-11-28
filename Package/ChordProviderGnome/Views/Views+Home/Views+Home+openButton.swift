@@ -27,8 +27,6 @@ extension Views.Home {
         HStack {
             Button("") {
                 appState.openSong(fileURL: fileURL)
-                // print("TOAST")
-                // appState.scene.showToast.signal()
             }
             .child {
                 VStack {

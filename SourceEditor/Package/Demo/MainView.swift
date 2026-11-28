@@ -82,7 +82,7 @@ struct MainView: View {
         .topToolbar {
             HeaderBar {
                 Button("New") {
-                    appState.controller.command(.newFile("Welcome to your new file!"))
+                    appState.controller.command(.new("Welcome to your new file!"))
                 }
                 Button("Open") {
                     appState.openFile.signal()
@@ -136,7 +136,7 @@ struct MainView: View {
         .onAppear {
             if appState.fileURL == nil {
                 appState.options.language = .markdown
-                appState.controller.command(.newFile(welcomeText))
+                appState.controller.command(.new(welcomeText))
             }
         }
         .fileImporter(

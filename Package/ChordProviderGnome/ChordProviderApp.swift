@@ -67,8 +67,6 @@ struct ChordProviderApp: App {
                     scheme: $appState.settings.editor.scheme,
                     storage: storage,
                     onNew: {
-                        print("NEW CALLBACK")
-                        appState.scene.toastMessage = "Test"
                         appState.openMainView()
                     },
                     onOpen: { result in
@@ -135,9 +133,18 @@ struct ChordProviderApp: App {
                 Task { @concurrent in
                     await ChordProviderMIDI.shared.setReferenceFrequency(referenceFrequency)
                     await ChordProviderMIDI.shared.setProgram(preset: preset)
+                    await ChordProviderMIDI.shared.midiCallback { snapshot in
+                        MainLoop.run {
+                            let held = snapshot.delayedNotes
+                            guard !held.isEmpty else {
+                                appState.scene.keyboardChord = .init()
+                                return
+                            }
+                            let match = appState.matcher.bestMatch(for: held)
+                            appState.scene.keyboardChord = match
+                        }
+                    }
                 }
-                // Init the css style
-                //appState.setStyle()
                 // Get the songs from the library
                 appState.getFolderContent()
             }
@@ -198,6 +205,27 @@ struct ChordProviderApp: App {
                 databaseState.saveDoneAction = .closeWindow
                 databaseState.showChangedDatatabaseDialog = true
                 return .cancel
+            }
+            return .close
+        }
+
+        // MARK: MIDI keyboard Window
+
+        Window(id: "keyboard", open: 0) { _ in
+            Views.Keyboard(
+                appState: appState,
+            )
+            .inspectOnAppear { _, _ in
+                Task { @concurrent in
+                    await ChordProviderMIDI.shared.startKeyboard()
+                }
+            }
+        }
+        .resizable(false)
+        .title("MIDI monitor")
+        .onClose {
+            Task { @concurrent in
+                await ChordProviderMIDI.shared.stopKeyboard()
             }
             return .close
         }

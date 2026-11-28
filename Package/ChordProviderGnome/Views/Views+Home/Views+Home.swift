@@ -34,19 +34,21 @@ extension Views {
                         .title3()
                     VStack {
                         Fixed()
-                            .element(x: 22, y: 20, id: "TEST2") {
-                                Box() {}
+                            .element(x: 22, y: 20, id: "icon-background") {
+                                Box {
+                                    // Just an attachement point
+                                }
                                     .frame(minWidth: 200, minHeight: 200)
                                     .style("symbolic-app-icon-background")
                             }
-                            .element(x: 0, y: 0, id: "TEST") {
+                            .element(x: 0, y: 0, id: "icon") {
                                 Image(bundle: "nl.desbeers.chordprovider-symbolic")
                                     .pixelSize(220)
                                     .style("symbolic-app-icon")
                                     .iconDropshadow()
                                     .halign(.center)
                                     .padding(10)
-                                    }
+                            }
                     }
 
                     VStack {
@@ -182,8 +184,6 @@ extension Views {
             result.append(MenuButton("Language Search Paths") { SourceEditor.Editor.Controller.printLanguageSearchPaths() })
             return Menu("Debug Print") { result }
         }
-
 #endif
-
     }
 }

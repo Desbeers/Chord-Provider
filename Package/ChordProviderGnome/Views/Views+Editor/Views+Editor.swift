@@ -33,7 +33,7 @@ extension Views {
                             controller: appState.controller
                         )
                         .onTextChanged { content in
-                            return appState.updateSong(content: content)
+                            appState.updateSong(content: content)
                         }
                         .onLineChanged {
                             appState.setCurrentLine()
@@ -46,10 +46,6 @@ extension Views {
                                 appState.scene.showEditDirectiveDialog = true
                             }
                         }
-                        // .onSchemeChanged {
-                        //     print("UPDATE CSS FOR CHORDPROVIDER")
-                        //     appState.setStyle()
-                        // }
                         .innerPadding(10, edges: .all)
                         .lineNumbers(appState.settings.editor.showLineNumbers)
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)

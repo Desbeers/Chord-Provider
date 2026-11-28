@@ -154,7 +154,7 @@ extension Markup {
     /// The CSS declarations
     static func css(theme: AppSettings.Theme, dark: Bool) -> String {
 
-return """
+"""
 :root {
     --chordprovider-window-start: var(--window-bg-color);
     --chordprovider-window-end: var(--window-bg-color);

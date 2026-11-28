@@ -21,7 +21,7 @@ extension ChordProviderMIDI {
         }
     }
 
-    /// Stop the MIDO transport
+    /// Stop the MIDI transport
     public func stopTransport() {
         guard playbackTasks.metronome == nil, playbackTasks.tab == nil, playbackTasks.grid == nil else {
             return

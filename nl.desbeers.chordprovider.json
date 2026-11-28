@@ -13,7 +13,8 @@
     "--device=dri",
     "--socket=wayland",
     "--filesystem=host",
-    "--filesystem=xdg-run/pipewire-0"
+    "--filesystem=xdg-run/pipewire-0",
+    "--socket=pulseaudio"
   ],
   "build-options": {
     "append-path": "/usr/lib/sdk/swift6/bin",
